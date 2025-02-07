@@ -2,3 +2,5 @@
 /src/.env
 /src2
 src/.env
+src/test.php
+/src/test.php
