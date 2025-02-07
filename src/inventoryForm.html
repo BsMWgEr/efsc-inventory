@@ -4,15 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="formStyle.css">
+    <link rel="stylesheet" href="/css/formStyle.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/forms.css">
     <title>Cyber Range Tables</title>
 </head>
-<body style="text-align: center;">
+<body>
+<?php include 'navbar.php'; ?>
     <!--Form 1 for add rows operation-->
+<main>
     <header><h1>Independent Tables Inventory Forms</h1></header>
-    <form id="insertForm" name="inventory" action="formProcess.php" method="POST">
-        <fieldset id="addForm">
-            <legend><h2>Add row form</h2></legend>
+    <form id="insertForm" class="insertForm" name="inventory">
+            <h2>Add row form</h2>
             <p style="font-weight: bold;">add information to database // test</p>
             <input type="hidden" name="form" value="form1"/>
             <label for="tableSelect">Table name</label><br>
@@ -31,20 +34,20 @@
 
             <div id="addFormCommonFields">
             <label for="p_id">Primary ID (bar code number)</label><br>
-            <input type="text" id="p_id" name="p_id"/><br>
+            <input type="text" id="p_id" name="p_id" placeholder="Enter Barcode"/><br>
             <label for="name">Brand name</label><br>
-            <input type="text" id="name" name="name"/><br>
+            <input type="text" id="name" name="name" placeholder="Enter Brand Name"/><br>
             <label for="condition">Item condition</label><br>
-            <input type="text" id="condition" name="condition"/><br>
+            <input type="text" id="condition" name="condition" placeholder="Condition..."/><br>
             <label for="cost">Item cost</label><br>
             <input type="number" id="cost" name="cost" step=".01" value="0"/><br>
             <label for="location">Item's location</label><br>
-            <input type="text" id="location" name="location"/><br>
+            <input type="text" id="location" name="location" placeholder="Location"/><br>
             </div>
             
             <div id="addAccessoryFields" class="hidden">
                 <label for="type">Asscessory type</label><br>
-                <input type="text" id="type" name="type" value=""/><br>
+                <input type="text" id="type" name="type" value="" placeholder="Type of Acc."/><br>
             </div>
 
             <div id="addMonitorsFields" class="hidden">
@@ -57,15 +60,17 @@
 
             <div id="addMotherboardsFields" class="hidden">
                 <label for="size">Motherboard Size</label><br>
-                <input type="hidden" id="size" name="addMotherboardSize" value="" checked/>
-                <input type="radio" id="size" name="addMotherboardSize" value="Micro ATX"/> Micro ATX (mATX)
-                <input type="radio" id="size" name="addMotherboardSize" value="ATX"/> full-size ATX
-                <input type="radio" id="size" name="addMotherboardSize" value="Extended ATX"/> Extended ATX (EATX)<br>
+                <select id="" name="addMotherboardSize">
+                    <option value="empty">Select Size</option>
+                    <option value="Micro ATX">Micro ATX (mATX)</option>
+                    <option value="ATX">full-size ATX</option>
+                    <option value="Extended ATX">Extended ATX (EATX)</option>
+                </select>
             </div>
 
             <div id="addRamsticksFields" class="hidden">
                 <label for="type">Type of ramstick</label><br>
-                <input type="text" id="type" name="type" value=""/><br>
+                <input type="text" id="type" name="type" value="" placeholder="Type"/><br>
                 <label for="speed">Ramstick speed</label><br>
                 <input type="number" id="speed" name="speed" step="1" placeholder="Enter a integer" value="0"/><br>
             </div>
@@ -78,19 +83,19 @@
                 <input type="radio" id="modular" name="modular" value="yes"/> Yes
                 <input type="radio" id="modular" name="modular" value="no"/> No<br>
             </div>
-            <p><button type="reset" onclick="clearForm('addForm')">Clear Form</button>&nbsp; &nbsp;
-                <button type="submit" name="submit">Insert row</button></p>
-        </fieldset>
+            <div class="insertFormButtons">
+                <button class="insertButton" type="reset" onclick="clearForm('addForm')">Clear Form</button>&nbsp; &nbsp;
+                <button class="insertButton" type="button" name="submit" onclick="InsertRow()">Insert row</button>
+            </div>
     </form>
     <br>
     <!--Form 2 for view table--> 
-    <form name="viewTable" action="formProcess.php" method="POST">
-        <fieldset>
-            <legend><h2>View table operation</h2></legend>
+    <form id="form2" name="viewTable">
+            <h2>View table operation</h2>
             <p style="font-weight: bold;">Test run for viewing a table</p>
             <input type="hidden" name="form" value="form2"/>
             <label for="table">Table name</label><br>
-            <select id="table" name="tableView">
+            <select id="table" name="tableView" >
                 <option value="empty">Table drop down list </option>
                 <option value="accessories">Accessory table</option>
                 <option value="graphicscards">Graphics card table</option>
@@ -101,14 +106,13 @@
                 <option value="powersupplies">Power supply table</option>
                 <option value="ramsticks">Ramstick table</option>
             </select><br>
-            <p><button type="submit" name="submit">View table</button></p>
-        </fieldset>
+            <button class="queryButton" type="button" onclick="ViewTable()" name="submit">View table</button>
     </form>
+
     <br>
     <!--Form 3 for update table-->
-    <form name="updateTable" action="formProcess.php" method="POST">
-        <fieldset id="updateForm">
-            <legend><h2>Update table form</h2></legend>
+    <form name="updateTable" action="/table-view/" method="POST">
+            <h2>Update table form</h2>
             <p style="font-weight: bold;">Test run updating a table</p>
             <input type="hidden" name="form" value="form3"/>
             <label for="tableUpdate">Table name</label><br>
@@ -175,34 +179,97 @@
             </div>
             <p><button type="reset" onclick="clearForm('updateForm')">Clear Form</button>&nbsp; &nbsp;
                 <button type="submit" name="submit">Update table</button></p>
-        </fieldset>
     </form>
     <br>
-    <!--Form 4 for deletion of record-->
-    <form name="deleteTable" action="formProcess.php" method="POST">
-        <Fieldset>
-            <legend><h2>Delete row form</h2></legend>
-            <p style="font-weight: bold;">Test run deleting a table</p>
-            <input type="hidden" name="form" value="form4"/>
-            <label for="tableDelete">Table name</label><br>
-            <select id="tableDelete" name="tableDelete">
-                <option value="empty">Table drop down list </option>
-                <option value="accessories">Accessory table</option>
-                <option value="graphicscards">Graphics card table</option>
-                <option value="keyboards">Keyboard table</option>
-                <option value="mice">Mouse table</option>
-                <option value="monitors">Monitors table</option>
-                <option value="motherboards">Motherboard table</option>
-                <option value="powersupplies">Power supply table</option>
-                <option value="ramsticks">Ramstick table</option>
-            </select><br>
-            <label for="pValue">Bar code number</label><br>
-            <input type="text" id="pValue" name="pValue"/>
-            <p><button type="reset">Clear Form</button>&nbsp; &nbsp;
-                <button type="submit" name="submit">Delete</button></p>
-        </Fieldset>
-    </form>
+
     <footer>Cyber Range</footer>
-    <script src="cyberScript.js"></script>
+</main>
+<div id="queryDisplay" class="queryDisplay"></div>
+
+
 </body>
+    <script src="cyberScript.js"></script>
+    <script>
+        async function ViewTable() {
+            const response = await fetch('/query-data/', {
+                method: 'POST',
+                body: new FormData(document.getElementById('form2'))
+            })
+            const data = await response.json()
+            console.log(data)
+            let table_name = document.getElementById('table').selectedOptions[0].text
+            let table_name_display = document.createElement('h2')
+            table_name_display.innerHTML = table_name
+            const table = document.getElementById('queryDisplay')
+            table.appendChild(table_name_display)
+            table.classList.add('display-flex')
+            document.querySelector('main').classList.add('display-none')
+
+            if (!data.failure) {
+                const option = document.createElement('table')
+                table.appendChild(option)
+                let keys = data[0]
+                keys = Object.keys(keys)
+                console.log(keys)
+                const element = document.createElement('thead')
+                for (let i = 0; i < keys.length; i++) {
+                    let header = document.createElement('th')
+                    header.innerHTML = keys[i]
+                    element.appendChild(header)
+                }
+                option.appendChild(element)
+                const table_body = document.createElement('tbody')
+                option.appendChild(table_body)
+                for (let i = 0; i < data.length; i++) {
+                    let row = document.createElement('tr')
+                    table_body.appendChild(row)
+                    let id_name
+                    for (let j = 0; j < keys.length; j++) {
+                        if (j === 0) {
+                            id_name = data[i][keys[j]]
+                        }
+                        let cell = document.createElement('td')
+                        cell.innerHTML = data[i][keys[j]]
+                        row.appendChild(cell)
+                    }
+                }
+            } else {
+                let message = document.createElement('p')
+                message.innerHTML = 'No data to display. Empty table.'
+                table.appendChild(message)
+            }
+            let button = document.createElement('button')
+            button.innerHTML = 'Back'
+            button.setAttribute('onclick', 'BackToMain()')
+            button.setAttribute('class', 'table-view-return-btn')
+            table.appendChild(button)
+            if (data.failure) {
+                alert(data.message)
+            }
+        }
+
+        function BackToMain() {
+            document.querySelector('main').classList.remove('display-none')
+            document.getElementById('queryDisplay').classList.remove('display-flex')
+            document.getElementById('queryDisplay').classList.add('display-none')
+            document.getElementById('table').selectedIndex = 0
+            document.getElementById('queryDisplay').innerHTML = ''
+        }
+
+        async function InsertRow() {
+            const response = await fetch('/insert-data/', {
+                method: 'POST',
+                body: new FormData(document.getElementById('insertForm'))
+            })
+            const data = await response.json()
+            console.log(data)
+            if (!data.failure) {
+                alert('Row inserted successfully')
+                clearForm('insertForm')
+            } else {
+            alert(data.message)
+            }
+        }
+
+    </script>
 </html><!--End of html page-->

@@ -4,24 +4,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="formStyle.css">
+        <link rel="stylesheet" href="/css/formStyle.css">
+        <link rel="stylesheet" href="/css/navbar.css">
         <title>Cyber Lab Inventory Home Page</title>
     </head>
     
     <body>
-        <header>
-            <img src="cyberBanner.jpg" alt="Banner" class="banner-image">
-            <div class="head-container">
-               <h1>Cyber Lab Inventory Home Page</h1>
-               <nav>
-                   <a href="inventoryForm.html" class="nav-button">Other forms</a>
-               </nav>
-            </div>
-        </header>
+        <?php include 'navbar.php'; ?>
+        <h1 style="text-align: center" id='header'>Cyber Lab Inventory Home Page</h1>
         <p id="pcSetUp-table" name="pcSetUp-table" class="table"></p>
         <p id="error" name="error"></p>
         <form id="Main-form" name="Main-form">
-            <fieldset id="addingToForm" class="styleForm">
+            <div id="addingToForm" class="styleForm">
                 <div class="form-field">
                     <label for="pc_id">PC ID: </label>
                    <input type="text" id="pc_id" name="pc_id"/>
@@ -65,12 +59,12 @@
                 <div class="form-field">
                     <label for="tableLocation">Computer location:</label><br>
                     <input type="text" id="tableLocation" name="tableLocation"/>
-                </div><br>
+                </div>
                 <div class="button-container">
                     <button type="submit" name="add" class="button">Insert Row</button>
                     <button type="submit" name="update" class="button">Update Row</button> 
-                <div>
-            </fieldset>
+                </div>
+            </div>
         
             <fieldset id="deleteTableRow" class="styleForm">
                 <div class="form-field" name="delete">
@@ -83,6 +77,6 @@
             </fieldset>
         </form>
         <footer>Cyber Range</footer>
-        <script src="cyberScript.js"></script>
+        <script src="../cyberScript.js"></script>
     </body>
 </html>

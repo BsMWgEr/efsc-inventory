@@ -7,6 +7,7 @@
    $tableList = ["keyboards", "table"];
    $description_k = ["key board ID", "computer ID", "key board name", "Condition of part", "Keyboard cost",
                      "Keyboard location", "input for table name"];
+   $tableNames = ["mice", "monitors", "motherboards", "powersupplies", "ramsticks", "keyboards"];
 
 
  if (!function_exists('find_ID')) {

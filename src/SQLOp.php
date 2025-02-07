@@ -30,191 +30,266 @@ include $sSQLS;
  }
 
  // Class insertOp is used to add rows into existing table
- Class insertOp extends SQLOp {
-    // class variables
-    private $p_id;
-    private $partName;
-    private $cond;
-    private $expense;
-    private $local;
-    private $size;
-    private $type;
-    private $speed;
-    private $wattage;
-    private $modular;
+ Class insertOp extends SQLOp
+ {
+     // class variables
+    protected $data;
 
-// function to set class variables
-    function set_table_names ($p_id, $partName, $cond, $expense, $local, $size, $type, $speed, $wattage ,$modular){
-        $this -> p_id = $p_id;
-        $this -> partName = $partName;
-        $this -> cond = $cond;
-        $this -> expense = $expense;
-        $this -> local = $local;
-        $this -> $size = $size;
-        $this -> speed = $speed;
-        $this -> type = $type;
-        $this -> wattage = $wattage;
-        $this -> modular = $modular;    
-    }
+     public function set_data($inputData)
+     {
+         $this -> data = $inputData;
+     }
 
-    // function to insert new rows into a existing record
-    function add_query(string $id_value, string $name_value, string $condition_value, float $cost_value, string $location_value, string $monitor_size_value, string $motherboard_value,
-                        string $speed_value, string $type_value, string $wattage_value, string $modular_value, string $tableName){
-        // function variables
-        $SQLstring = "";
-        $parList = [];
-        //SQLstring is the variable that contains the SQL command this variable will be given to any of the overload functions
-        if(!empty($monitor_size_value)){
-            $SQLstring = sql_inserting_com($this -> p_id, $this -> partName, $this -> size, $this -> cond, $this -> expense, $this -> local ,$tableName);
-        // parList is an array variable to connect sql place hold with user's variables
-            $parList = [':' . $this -> p_id => $id_value, 
-                        ':' . $this -> partName => $name_value,
-                        ':' . $this -> size => $monitor_size_value,
-                        ':' . $this -> cond => $condition_value, 
-                        ':' . $this -> expense => $cost_value, 
-                        ':' . $this -> local => $location_value
-                        ];
+     public function insert_mouse() {
+
+         $mouse_id = $this -> data['p_id'];
+         $name = $this -> data['name'];
+         $condition = $this -> data['condition'];
+         $cost = $this -> data['cost'];
+         $location = $this -> data['location'];
+
+        $this -> SQLstring = "INSERT INTO mice (mouse_id, name, `condition`, cost, location) VALUES (:mouse_id, :name, :condition, :cost, :location)";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':mouse_id', $mouse_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+         }
+         else{
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+         }
+
+     }
+
+     public function insert_accessory()
+     {
+        $acc_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $type = $this -> data['type'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "INSERT INTO accessories (acc_id, name, type, `condition`, cost, location) VALUES (:acc_id, :name, :type, :condition, :cost, :location)";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':acc_id', $acc_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':type', $type);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+         }
+         else{
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+         }
+     }
+
+     public function insert_keyboard()
+     {
+         $kb_id = $this -> data['p_id'];
+         $name = $this -> data['name'];
+         $condition = $this -> data['condition'];
+         $cost = $this -> data['cost'];
+         $location = $this -> data['location'];
+
+         $this -> SQLstring = "INSERT INTO keyboards (kb_id, name, `condition`, cost, location) VALUES (:kb_id, :name, :condition, :cost, :location)";
+         $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+         $this -> statement -> bindParam(':kb_id', $kb_id);
+         $this -> statement -> bindParam(':name', $name);
+         $this -> statement -> bindParam(':condition', $condition);
+         $this -> statement -> bindParam(':cost', $cost);
+         $this -> statement -> bindParam(':location', $location);
+
+         if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+         }
+         else{
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+         }
+     }
+
+     public function insert_monitor()
+     {
+        $monitor_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+        $monitorSize = $this -> data['addMonitorSize'];
+
+        $this -> SQLstring = "INSERT INTO monitors (monitor_id, name, `condition`, cost, location, size) VALUES (:monitor_id, :name, :condition, :cost, :location, :size)";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':monitor_id', $monitor_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+        $this -> statement -> bindParam(':size', $monitorSize);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
         }
-        else if(!empty($motherboard_value)){
-            $SQLstring = sql_inserting_com($this -> p_id, $this -> partName, $this -> size, $this -> cond, $this -> expense, $this -> local ,$tableName);
-        // parList is an array variable to connect sql place hold with user's variables
-            $parList = [':' . $this -> p_id => $id_value, 
-                        ':' . $this -> partName => $name_value,
-                        ':' . $this -> size => $motherboard_value,
-                        ':' . $this -> cond => $condition_value, 
-                        ':' . $this -> expense => $cost_value, 
-                        ':' . $this -> local => $location_value
-                        ];
-        }
-        else if (!empty($speed_value)){
-            $SQLstring = sql_inserting_com($this -> p_id, $this -> partName, $this -> type, $this -> speed, $this -> cond, $this -> expense ,$this -> local, $tableName);
-            $parList = [':' . $this -> p_id => $id_value, 
-                        ':' . $this -> partName => $name_value,
-                        ':' . $this -> type => $type_value,
-                        ':' . $this -> speed => $speed_value,
-                        ':' . $this -> cond => $condition_value, 
-                        ':' . $this -> expense => $cost_value, 
-                        ':' . $this -> local => $location_value
-                        ];
-        }
-        elseif (!empty($type_value)) {
-            $SQLstring = sql_inserting_com($this -> p_id, $this -> partName, $this -> type, $this -> cond, $this -> expense, $this -> local ,$tableName);
-            $parList = [':' . $this -> p_id => $id_value, 
-                        ':' . $this -> partName => $name_value,
-                        ':' . $this -> type => $type_value,
-                        ':' . $this -> cond => $condition_value, 
-                        ':' . $this -> expense => $cost_value, 
-                        ':' . $this -> local => $location_value
-                       ];
-        }
-        else if (!empty($wattage_value)){
-            $SQLstring = sql_inserting_com($this -> p_id, $this -> partName, $this -> wattage, $this -> modular, $this -> cond, $this -> expense ,$this -> local, $tableName);
-            $parList = [':' . $this -> p_id => $id_value, 
-                        ':' . $this -> partName => $name_value,
-                        ':' . $this -> wattage => $wattage_value,
-                        ':' . $this -> modular => $modular_value,
-                        ':' . $this -> cond => $condition_value, 
-                        ':' . $this -> expense => $cost_value, 
-                        ':' . $this -> local => $location_value
-                       ];
-        }
-        else{
-            $SQLstring = sql_inserting_com($this -> p_id, $this -> partName, $this -> cond, $this -> expense, $this -> local, $tableName);
-            $parList = [':' . $this -> p_id => $id_value, 
-                        ':' . $this -> partName => $name_value, 
-                        ':' . $this -> cond => $condition_value, 
-                        ':' . $this -> expense => $cost_value, 
-                        ':' . $this -> local => $location_value
-                        ];
+     }
+
+     public function insert_motherboard()
+     {
+        $mobo_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $size = $this -> data['addMotherboardSize'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "INSERT INTO motherboards (mobo_id, name, size, `condition`, cost, location) VALUES (:mobo_id, :name, :size, :condition, :cost, :location)";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':mobo_id', $mobo_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':size', $size);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
         }
 
-        // The variable statement is assigned the SQLstring with the prepare method for binding values
-        $statement = $this -> conn -> prepare(query: $SQLstring);
+     }
 
-        if ($statement === false) {
-            die("SQL statement preparation failed: " . print_r($this -> conn->errorInfo(), true));
+     public function insert_gpu()
+     {
+        $gpu_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "INSERT INTO graphicscards (gpu_id, name, `condition`, cost, location) VALUES (:gpu_id, :name, :condition, :cost, :location)";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':gpu_id', $gpu_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        }
+     }
+
+     public function insert_ram()
+     {
+        $ram_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $type = $this -> data['type'];
+        $speed = $this -> data['speed'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "INSERT INTO ramsticks (ram_id, name, type, speed, `condition`, cost, location) VALUES (:ram_id, :name, :type, :speed, :condition, :cost, :location)";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':ram_id', $ram_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':type', $type);
+        $this -> statement -> bindParam(':speed', $speed);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if ($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
         }
 
-        // the forloop binds user variable's as a reference and its value to statement variable
-        foreach($parList as $para => $value){
-            $statement -> bindValue($para, $value);
-        }
+     }
 
-        // Check if the statement is ready to execute
-        if ($statement) {
-           echo "Statement prepared successfully.<br>";
-        } 
-        else {
-           echo "Statement preparation failed.<br>";
-           print_r($this -> conn->errorInfo());
+     public function insert_psu()
+     {
+        $psu_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $wattage = $this -> data['wattage'];
+        $modular = $this -> data['modular'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "INSERT INTO powersupplies (psu_id, name, wattage, modular, `condition`, cost, location) VALUES (:psu_id, :name, :wattage, :modular, :condition, :cost, :location)";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':psu_id', $psu_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':wattage', $wattage);
+        $this -> statement -> bindParam(':modular', $modular);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
         }
-        
-        // this if else statement executes the SQL command and tells you if it was successful or not.
-        try{
-           if($statement -> execute()){
-              echo "Record inserted successfully.";
-              $this -> database -> closeDB();
-            } 
-           else{
-              echo "Not successful.";
-            }
-        }
-        catch(PDOException $e){
-            echo "Excution failed: " . $e -> getMessage();
-        }
-    }
+     }
+
  }
 
+
+
+
 // Class queryOp is used to view a table in its entirety.
-Class queryOp extends SQLOp {
+class queryOp extends SQLOp {
     protected $tableName;
     private $stmt;
-//function set
-    public function set_table_name(string $tableName){
-        $this -> tableName = $tableName;
+
+    protected array $tableNames_;
+
+    // Set table name
+    public function set_table_name(string $tableName) {
+        $this->tableName = $tableName;
+    }
+    public function check_table_name()
+    {
+        $this->tableNames_ = $GLOBALS['tableNames'];
+        $tableNames__ = $this->tableNames_;
+        return in_array($this->tableName, $tableNames__);
+
     }
 
-    //querying table
-    public function query_table(){
-        $this -> SQLstring = "SELECT * FROM ";
-        $this -> stmt = $this -> conn -> query($this -> SQLstring.$this ->tableName);
+    // Querying table
+
+
+    public function query_table() {
+
+            $this->SQLstring = "SELECT * FROM " . $this->tableName;
+            $this->stmt = $this->conn->prepare($this->SQLstring);
+            $this->stmt->execute();
+
+
     }
 
-    public function print_table(){
-        $headStmts = $this -> stmt -> fetch(PDO::FETCH_ASSOC);
+    // Print table as JSON
+    public function print_table() {
 
-        if($headStmts){
-            echo "<table border = 1>";
-        // generate table headers dynamically
-           echo "<tr>";
-           foreach(array_keys($headStmts) as $colName){
-               echo "<th>" . htmlspecialchars($colName) . "</th>";
-           }
-           echo "</tr>";
+            $headStmts = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo (json_encode($headStmts));
 
-           echo "<tr>";
-        // display first row associated with headers
-           foreach($headStmts as $row_value){
-               echo "<td>" . htmlspecialchars($row_value) . "</td>"; 
-           }
-           echo "</tr>";
 
-        // display remain table rows
-           while($row = $this -> stmt -> fetch(PDO::FETCH_ASSOC)){
-           echo "<tr>";
-              foreach($row as $row_value){
-                  echo "<td>" . htmlspecialchars($row_value) . "</td>";
-              }
-           echo "</tr>";
-           }
-           echo "</table>";
-        }
-        else {
-            echo "No data found.";
-        }
-        $this -> database -> closeDB();
     }
 }
+
 
 class updateOp extends SQLOp{// updateOp class intended to update tables
     // class variables
@@ -260,7 +335,10 @@ class deleteOp extends SQLOp {// delete rows
     public function set_table_delete($tableName, $deleteValue1){// set user variables to delete row
         // deleteValue1 is the primary ID to tables
         include 'wLInventory.php';
-        $this -> SQLstring = "DELETE FROM $tableName WHERE $wordList[0] = :deleteValue1";
+
+        $searchValue = find_ID($tableName);
+
+        $this -> SQLstring = "DELETE FROM $tableName WHERE $searchValue = :deleteValue1";
         $this -> statement = $this -> conn -> prepare($this -> SQLstring);
         if($this -> statement === false){
             die("SQL statement preparation failed: " . print_r($this -> conn-> errorInfo(), true));
@@ -271,7 +349,7 @@ class deleteOp extends SQLOp {// delete rows
     public function delete_row(){// function used to delete a row from a table.
         try{
             if($this -> statement -> execute()){
-                echo "Row successfully deleted";
+                echo json_encode(["success" => true, "message" => "Row successfully deleted"]);
             }
         }
         catch(PDOException $e){
@@ -378,4 +456,34 @@ class pcSetUp extends SQLOp{
         }
     }//end of remove_row function
 }// end of pcSetUp class
+
+class SearchBarcodes extends SQLOp{
+     protected array $tableNames_;
+
+     protected array $foundData = [];
+    public function search_barcode($barcode){
+
+        $barcode = "%" . $barcode . "%";
+
+        $this -> tableNames_ = $GLOBALS['tableNames'];
+
+        foreach($this -> tableNames_ as $tableName){
+            $searchValue = find_ID($tableName);
+
+            $this -> statement = $this -> conn -> prepare("SELECT * FROM $tableName WHERE $searchValue LIKE :barcode");
+            $this -> statement -> bindParam(':barcode', $barcode);
+            try{
+                $this -> statement -> execute();
+                $data = $this -> statement -> fetchAll(PDO::FETCH_ASSOC);
+                if ($data) {
+                    $this->foundData = array_merge($this->foundData, $data); // Merges results from each table
+                }
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+        echo json_encode($this -> foundData);
+    }
+}
+
 ?>
