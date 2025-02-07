@@ -1,0 +1,196 @@
+/*Main file for SQL operations classes, for CRUD interaction with database
+Created by Aaron Cortina, Start Date: 09/01/2024 Finished Date:*/
+
+/*Start of stylesheet for inventory system*/
+.hidden {
+    display: none;
+}
+
+html{
+    background-color: #32635F;
+}
+
+.head-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.head-container h1{
+    flex: 1;
+    text-align: center;
+}
+
+.head-container nav{
+    display: flex;
+    gap: 15px;
+}
+
+.banner-image{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1440px;
+    height: 350px;
+}
+
+form[id="Main-form"]{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.nav-button {
+    background-color: mediumseagreen;
+    border: none;
+    color: black;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.nav-button:hover{
+    background-color: darkgreen;
+}
+
+.table{
+    background-color: aqua;
+    align-items: center;
+}
+
+.form-field{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-field[name="delete"]{
+    padding-right: 60px;
+}
+
+.form-field label {
+    width: 100px;
+    margin-right: 10px;
+    text-align: right;
+}
+
+.form-field input{
+    flex: 1;
+    padding: 5px;
+}
+
+.styleForm{
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+}
+
+.styleForm[id="deleteTableRow"]{
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-block{
+    display: block;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+/* class for buttons and how they look on the webpage*/
+.button-container{
+    display:flex;
+    justify-content: center;
+}
+
+.button-container[name="delete"]{
+    margin-top: auto;
+}
+
+.button-container button{
+    margin: 5px 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+    .banner-image{
+        width: 100%;
+        height: 350px;
+    }
+
+    nav a {
+        float: none !important;
+        width: 100% !important;
+    }
+
+    .styleForm{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 30px;
+    }
+
+    form[id="Main-form"]{
+        display: block !important;
+        max-width: 100% !important;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    form#Main-form .form-field{
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .form-field[name="delete"]{
+        padding-right: 60px !important;
+    }
+    
+    .form-field label {
+        width: 100%;
+        margin-right: 5px;
+        text-align: left;
+    }
+    
+    .form-field input{
+        width: 100%;
+        padding: 5px;
+    }
+    .comment-block{
+        display: block !important;
+        width: 100%;
+    }
+
+    .button-container{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .button-container button {
+        width: 100%;
+        padding: 10px;
+    }
+}
