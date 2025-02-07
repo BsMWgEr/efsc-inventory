@@ -21,24 +21,11 @@
     // start of form processing for keyboard page
     // variable list and require list
        require 'wLInventory.php';
+       require 'validators.php';
        require $sOP;
        $errorCount = 0;
        
-       // display error function
-       function display_error($entryName){
-           global $errorCount;
-           ++$errorCount;
-           echo "the field \"$entryName\" is required. Error count: \"$errorCount\"<br>";
-        }
-    // validate input function
-       function validate_input($data, $entryName):String{
-          global $errorCount;
-          if(empty($data)){
-            display_error($entryName);
-            $data = "";
-          }
-          return $data;
-        }
+
        // end of function list
 
        // start of main program
@@ -82,23 +69,6 @@
               echo "No form data recieved";
            }
            break;
-
-        // View Table form
-        case 'form2':
-            $viewOp = new queryOp();// instantiating queryOp class
-            $table_name = validate_input($_POST['tableView'], $description_k[6]);
-            if($errorCount == 0) {
-                $viewOp -> connect();
-                $viewOp -> set_table_name($table_name);
-                $viewOp -> query_table();
-                $viewOp -> print_table();
-                $viewOp -> DB_close();
-            }
-            else{
-                echo "No form data recieved";
-            }
-            break;
-
         // operation to update table row
         case 'form3':
             //local variables
@@ -182,4 +152,5 @@
        }
     ?>
 </body>
+
 </html>

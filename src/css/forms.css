@@ -1,0 +1,125 @@
+
+
+.queryDisplay {
+    position: fixed;
+    width: 75%;
+    max-height: 75%;
+    overflow: scroll;
+    background: black;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.queryDisplay h2 {
+    color: #32635F;
+    border: 2px solid;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.queryDisplay table {
+    width: 100%;
+}
+
+table thead {
+    background: rgba(50,99,95, 0.5);
+    color: white;
+
+}
+
+table tr {
+    text-align: center;
+}
+
+table tr:hover {
+    background: white;
+    color: red;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+
+}
+
+.table-view-return-btn {
+    width: 50%;
+    padding: 10px;
+    color: #32635F;
+    background: black;
+    border: 1px solid #32635F;
+    border-radius: 10px;
+    margin-top: 30px;
+    transition: 0.5s;
+}
+.table-view-return-btn:hover {
+    background: #32635F;
+    color: white;
+    border-radius: 50px;
+    box-shadow: #32635F 0 0 10px;
+    transition: 0.5s;
+}
+
+
+.display-none {
+    display: none;
+}
+
+.display-flex {
+    display: flex;
+}
+
+.insertForm input, .insertForm select, #table {
+    font-size: 16pt;
+    border-radius: 50px;
+    padding: 5px;
+    border: none;
+    background: white;
+    opacity: .5;
+    color: black;
+    text-align: center;
+}
+
+.insertForm input:hover, .insertForm select:hover, #table:hover {
+    box-shadow: 0 0 10px black;
+}
+
+.insertFormButtons {
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+}
+
+.insertButton, .queryButton {
+    width: 50%;
+    padding: 10px;
+    color: #32635F;
+    background: black;
+    border: 1px solid #32635F;
+    border-radius: 10px;
+    margin-top: 30px;
+    transition: 0.5s;
+}
+
+.queryButton {
+    width: 25%;
+}
+
+.insertButton:hover, .queryButton:hover {
+    background: #32635F;
+    color: white;
+    border-radius: 50px;
+    box-shadow: black 0 0 10px;
+    transition: 0.5s;
+}

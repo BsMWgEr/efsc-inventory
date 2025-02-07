@@ -47,7 +47,7 @@ function fetchTable() {
         .then(data => {
             if (data.message) {
                 document.getElementById('pcSetUp-table').innerHTML = data.message;
-            } 
+            }
             else {
                 let table = '<table border="1"><tr>';
                 for (let key in data[0]) {

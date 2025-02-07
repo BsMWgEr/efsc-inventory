@@ -10,6 +10,24 @@ html{
     background-color: #32635F;
 }
 
+body {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
 .head-container{
     display: flex;
     align-items: center;
@@ -26,38 +44,31 @@ html{
     gap: 15px;
 }
 
-.banner-image{
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1440px;
-    height: 350px;
+#header {
+    font-family: 'Monospaced', Courier, monospace;
 }
 
-form[id="Main-form"]{
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-.nav-button {
-    background-color: mediumseagreen;
-    border: none;
-    color: black;
-    padding: 15px;
+footer {
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 8px;
+    background: white;
+    color: #32635f;
+    width: 100%;
+    padding: 10px;
+    font-size: 1.5em;
+    margin-top:100px;
 }
-.nav-button:hover{
-    background-color: darkgreen;
+
+form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
 }
+
 
 .table{
     background-color: aqua;
@@ -85,30 +96,14 @@ form[id="Main-form"]{
     padding: 5px;
 }
 
-.styleForm{
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-auto-rows: auto;
-    width: 300px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 30px;
-}
-
 .styleForm[id="deleteTableRow"]{
     display: flex;
     flex-direction: column;
 }
 
 .comment-block{
-    display: block;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 4;
-    grid-row-end: 5;
+    display: flex;
+    flex-direction: column;
 }
 /* class for buttons and how they look on the webpage*/
 .button-container{
@@ -150,7 +145,8 @@ form[id="Main-form"]{
     }
 
     form[id="Main-form"]{
-        display: block !important;
+        display: flex !important;
+        flex-direction: column;
         max-width: 100% !important;
         margin: 0 auto;
         padding: 20px;
@@ -163,17 +159,17 @@ form[id="Main-form"]{
         width: 100% !important;
         margin-bottom: 10px !important;
     }
-    
+
     .form-field[name="delete"]{
         padding-right: 60px !important;
     }
-    
+
     .form-field label {
         width: 100%;
         margin-right: 5px;
         text-align: left;
     }
-    
+
     .form-field input{
         width: 100%;
         padding: 5px;
