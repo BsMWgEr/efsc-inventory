@@ -1,18 +1,18 @@
 nav {
     position: sticky;
-    top: 10px;
+    top: 0;
     justify-content: right;
     width: 100%;
     right: 0;
     display: flex;
     flex-direction: row;
     z-index: 1;
-    background: #32635f;
+    background: gray;
 }
 
 .nav-links {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: right;
     height: fit-content;
     width: 100%;
@@ -32,11 +32,16 @@ nav {
 }
 
 .nav-links a:hover{
-    background-color: #32635f;
+    background: none;
     color: black;
     box-shadow: 0 0 10px black;
     border-radius: 50px;
     opacity: .5;
+}
+
+.nav-links div {
+    display: flex;
+    flex-direction: row;
 }
 
 #nav-delete-btn {

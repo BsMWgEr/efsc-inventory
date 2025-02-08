@@ -1,3 +1,7 @@
+<?php
+require 'auth.php';
+checkAccess(['superAdmin', 'admin', 'staff']);
+?>
 <!DOCTYPE html>
 <html lang="en">
     <!-- Created by Aaron C. 01/16/2023 -->
@@ -7,6 +11,7 @@
     <link rel="stylesheet" href="/css/formStyle.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/forms.css">
+
     <title>Cyber Range Tables</title>
 </head>
 <body>
@@ -111,12 +116,12 @@
 
     <br>
     <!--Form 3 for update table-->
-    <form name="updateTable" action="/table-view/" method="POST">
+    <form id="updateForm" name="updateTable" >
             <h2>Update table form</h2>
             <p style="font-weight: bold;">Test run updating a table</p>
             <input type="hidden" name="form" value="form3"/>
             <label for="tableUpdate">Table name</label><br>
-            <select id="tableUpdate" name="tableUpdate" onchange="showNeededFields('tableUpdate', 'updateAccessoriesFields', 'updateMonitorsFields', 'updateMotherBoardsFields',
+            <select class="update-form-inputs" id="tableUpdate" name="tableUpdate" onchange="showNeededFields('tableUpdate', 'updateAccessoriesFields', 'updateMonitorsFields', 'updateMotherBoardsFields',
                 'updateRamsticksFields', 'updatePowerSupplyFields')">
                 <option value="empty">Table drop down list </option>
                 <option value="accessories">Accessory table</option>
@@ -130,55 +135,58 @@
             </select><br>
             <div id="updateFormCommonFields">
                 <label for="pValue">Bar code number</label><br>
-                <input type="text" id="pValue" name="pValue"/><br>
+                <input class="update-form-inputs" type="text" id="pValue" name="p_id"/><br>
                 <label for="nValue">Brand name</label><br>
-                <input type="text" id="nValue" name="nValue"/><br>
+                <input class="update-form-inputs" type="text" id="nValue" name="name"/><br>
                 <label for="conValue">Update condition of component</label><br>
-                <input type="text" id="conValue" name="conditionValue"/><br>
+                <input class="update-form-inputs" type="text" id="conValue" name="condition"/><br>
                 <label for="costVal">Update cost on compenent</label><br>
-                <input type="number" id="costVal" name="costValue" step=".01" value="0"/><br>
+                <input class="update-form-inputs" type="number" id="costVal" name="cost" step=".01" value="0"/><br>
                 <label for="locValue">Update location</label><br>
-                <input type="text" id="locValue" name="locationValue"/><br>
+                <input class="update-form-inputs" type="text" id="locValue" name="location"/><br>
             </div>
 
             <div id="updateAccessoriesFields" class="hidden">
                 <label for="typeVal">Update accessories type</label><br>
-                <input type="text" id="typeVal" name="typeValue" value=""/><br>
+                <input class="update-form-inputs" type="text" id="typeVal" name="type" value=""/><br>
             </div>
 
             <div id="updateMonitorsFields" class="hidden">
                 <label for="sizeVal">Update monitor size</label><br>
-                <input type="hidden" id="sizeVal" name="monitorsSizeValue" value="" checked/>
-                <input type="radio" id="sizeVal" name="monitorsSizeValue" value="small"/> Small (up to 14 in)
-                <input type="radio" id="sizeVal" name="monitorsSizeValue" value="medium"/> Medium (15 inch to 22 inch)
-                <input type="radio" id="sizeVal" name="monitorsSizeValue" value="large"/> Large (22in and up)<br>
+                <input type="hidden" id="sizeVal" name="addMonitorSize" value="" checked/>
+                <input type="radio" id="sizeVal" name="addMonitorSize" value="small"/> Small (up to 14 in)
+                <input type="radio" id="sizeVal" name="addMonitorSize" value="medium"/> Medium (15 inch to 22 inch)
+                <input type="radio" id="sizeVal" name="addMonitorSize" value="large"/> Large (22in and up)<br>
             </div>
 
             <div id="updateMotherBoardsFields" class="hidden">
                 <label for="sizeVal">Update Size</label><br>
-                <input type="hidden" id="sizeVal" name="motherboardSizeValue" value="" checked/>
-                <input type="radio" id="sizeVal" name="motherboardsizeValue" value="Micro ATX"/> Micro ATX (mATX)
-                <input type="radio" id="sizeVal" name="motherboardsizeValue" value="ATX"/> full-size ATX
-                <input type="radio" id="sizeVal" name="motherboardsizeValue" value="Extended ATX"/> Extended ATX (EATX)<br>
+                <input type="hidden" id="sizeVal" name="addMotherboardSize" value="" checked/>
+                <input type="radio" id="sizeVal" name="addMotherboardSize" value="Micro ATX"/> Micro ATX (mATX)
+                <input type="radio" id="sizeVal" name="addMotherboardSize" value="ATX"/> full-size ATX
+                <input type="radio" id="sizeVal" name="addMotherboardSize" value="Extended ATX"/> Extended ATX (EATX)<br>
             </div>
 
             <div id="updateRamsticksFields" class="hidden">
                 <label for="typeVal">Update ramstick type</label><br>
-                <input type="text" id="typeVal" name="typeValue" value=""/><br>
+                <input class="update-form-inputs" type="text" id="typeVal" name="type" value=""/><br>
                 <label for="speed">Update ramstick speed</label><br>
-                <input type="number" id="speed" name="speedValue" step="1" placeholder="Enter a integer" value="0"/><br>
+                <input class="update-form-inputs" type="number" id="speed" name="speed" step="1" placeholder="Enter a integer" value="0"/><br>
             </div>
 
             <div id="updatePowerSupplyFields" class="hidden">
-                <label for="watVal">Update power supply wattage</label><br>
-                <input type="number" id="watVal" name="wattageValue" step="1" placeholder="Enter a integer" value="0"/><br>
+                <label for="wattage">Update power supply wattage</label><br>
+                <input class="update-form-inputs" type="number" id="wattage" name="wattageValue" step="1" placeholder="Enter a integer" value="0"/><br>
                 <label for="modVal">Update "if power supply is modular"</label><br>
-                <input type="hidden" id="modVal" name="modValue" value="" checked/>
-                <input type="radio" id="modVal" name="modValue" value="yes"/> Yes
-                <input type="radio" id="modVal" name="modValue" value="no"/> No<br>
+                <input type="hidden" id="modVal" name="modular" value="" checked/>
+                <input type="radio" id="modVal" name="modular" value="yes"/> Yes
+                <input type="radio" id="modVal" name="modular" value="no"/> No<br>
             </div>
-            <p><button type="reset" onclick="clearForm('updateForm')">Clear Form</button>&nbsp; &nbsp;
-                <button type="submit" name="submit">Update table</button></p>
+        <div class="update-form-buttons">
+            <button class="update-form-btns" type="reset" onclick="clearForm('updateForm')">Clear Form</button>&nbsp; &nbsp;
+            <button class="update-form-btns" type="button" name="submit" onclick="UpdateRow()">Update table</button>
+        </div>
+
     </form>
     <br>
 
@@ -266,6 +274,21 @@
             if (!data.failure) {
                 alert('Row inserted successfully')
                 clearForm('insertForm')
+            } else {
+            alert(data.message)
+            }
+        }
+
+        async function UpdateRow() {
+            const response = await fetch('/update-data/', {
+                method: 'POST',
+                body: new FormData(document.getElementById('updateForm'))
+            })
+            const data = await response.json()
+            console.log(data)
+            if (!data.failure) {
+                alert('Row updated successfully')
+                clearForm('updateForm')
             } else {
             alert(data.message)
             }

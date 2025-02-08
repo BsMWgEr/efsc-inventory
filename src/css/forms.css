@@ -80,7 +80,7 @@ table {
     display: flex;
 }
 
-.insertForm input, .insertForm select, #table {
+.insertForm input, .insertForm select, #table, .update-form-inputs {
     font-size: 16pt;
     border-radius: 50px;
     padding: 5px;
@@ -89,19 +89,20 @@ table {
     opacity: .5;
     color: black;
     text-align: center;
-}
-
-.insertForm input:hover, .insertForm select:hover, #table:hover {
     box-shadow: 0 0 10px black;
 }
 
-.insertFormButtons {
+.insertForm input:hover, .insertForm select:hover, #table:hover, .update-form-inputs:hover {
+    box-shadow: 0 0 10px white;
+}
+
+.insertFormButtons, .update-form-buttons {
     display: flex;
     flex-direction: row;
     width: 25%;
 }
 
-.insertButton, .queryButton {
+.insertButton, .queryButton, .update-form-btns {
     width: 50%;
     padding: 10px;
     color: #32635F;
@@ -116,7 +117,7 @@ table {
     width: 25%;
 }
 
-.insertButton:hover, .queryButton:hover {
+.insertButton:hover, .queryButton:hover, .update-form-btns:hover {
     background: #32635F;
     color: white;
     border-radius: 50px;

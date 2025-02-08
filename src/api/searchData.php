@@ -1,7 +1,9 @@
 <?php
-
+require_once 'auth.php';
 require 'SQLOp.php';
 require 'validators.php';
+
+checkAccess(['superAdmin', 'admin', 'staff']);
 
 $errorCount = 0;
 

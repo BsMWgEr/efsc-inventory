@@ -1,0 +1,107 @@
+
+
+.computer-form-inputs {
+    font-size: 16pt;
+    border-radius: 50px;
+    padding: 5px;
+    border: none;
+    background: white;
+    opacity: .5;
+    color: black;
+    text-align: center;
+    box-shadow: 0 0 10px black;
+}
+
+.computer-form-inputs:hover {
+    box-shadow: 0 0 10px white;
+}
+
+.form button {
+    width: 50%;
+    padding: 10px;
+    color: #32635F;
+    background: black;
+    border: 1px solid #32635F;
+    border-radius: 10px;
+    margin-top: 30px;
+    transition: 0.5s;
+
+}
+
+.button-container{
+    display:flex;
+    justify-content: center;
+ }
+
+.button-container button{
+    width: 50%;
+    padding: 10px;
+    color: #32635F;
+    background: black;
+    border: 1px solid #32635F;
+    border-radius: 10px;
+    margin-top: 30px;
+    transition: 0.5s;
+}
+
+.button-container button:hover{
+    background: #32635F;
+    color: white;
+    border-radius: 50px;
+    box-shadow: black 0 0 10px;
+    transition: 0.5s;
+}
+
+.button-container[name="delete"]{
+    margin-top: auto;
+}
+
+.form-field{
+     display: flex;
+     align-items: center;
+     margin-bottom: 10px;
+ }
+
+.form-field[name="delete"]{
+    padding-right: 60px;
+}
+
+.form-field label {
+    width: 100px;
+    margin-right: 10px;
+    text-align: right;
+}
+
+.form-field input{
+    flex: 1;
+    padding: 5px;
+}
+
+@media screen and (max-width: 800px) {
+    .button-container{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .button-container button {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .form-field[name="delete"]{
+            padding-right: 60px !important;
+        }
+
+    .form-field label {
+        width: 100%;
+        margin-right: 5px;
+        text-align: left;
+    }
+
+    .form-field input{
+        width: 100%;
+        padding: 5px;
+    }
+
+}

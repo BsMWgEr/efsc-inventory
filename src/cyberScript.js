@@ -75,7 +75,7 @@ function viewTable() {
     document.addEventListener('DOMContentLoaded', fetchTable);
 }
 
-viewTable(); //loads method automatically when the page loads.
+// viewTable(); loads method automatically when the page loads.
 
 // function add is used to add new entries to the pcSetUP table and update to table
 function addTable(){
@@ -158,7 +158,7 @@ function addTable(){
 }
 
 // function used to update table
-/* function updateRow(){
+function updateRow(){
     document.getElementById('...').addEventListener("submit", function(event){
         event.preventDefault();
         const pc_id = document.getElementById('pc_id').value;
@@ -201,7 +201,7 @@ function addTable(){
             document.getElementById('...').innerHTML = "Update failed."
         })
     })
-} */
+}
 
 // function to delete row from the pc set up table
 function deleteRow(){

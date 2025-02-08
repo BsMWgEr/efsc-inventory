@@ -6,10 +6,6 @@ Created by Aaron Cortina, Start Date: 09/01/2024 Finished Date:*/
     display: none;
 }
 
-html{
-    background-color: #32635F;
-}
-
 body {
     width: 100%;
     margin: 0;
@@ -17,6 +13,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: #32635f;
 }
 
 main {
@@ -75,26 +72,7 @@ form {
     align-items: center;
 }
 
-.form-field{
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
 
-.form-field[name="delete"]{
-    padding-right: 60px;
-}
-
-.form-field label {
-    width: 100px;
-    margin-right: 10px;
-    text-align: right;
-}
-
-.form-field input{
-    flex: 1;
-    padding: 5px;
-}
 
 .styleForm[id="deleteTableRow"]{
     display: flex;
@@ -106,21 +84,6 @@ form {
     flex-direction: column;
 }
 /* class for buttons and how they look on the webpage*/
-.button-container{
-    display:flex;
-    justify-content: center;
-}
-
-.button-container[name="delete"]{
-    margin-top: auto;
-}
-
-.button-container button{
-    margin: 5px 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
 
 @media screen and (max-width: 800px) {
     .banner-image{
@@ -160,33 +123,11 @@ form {
         margin-bottom: 10px !important;
     }
 
-    .form-field[name="delete"]{
-        padding-right: 60px !important;
-    }
 
-    .form-field label {
-        width: 100%;
-        margin-right: 5px;
-        text-align: left;
-    }
-
-    .form-field input{
-        width: 100%;
-        padding: 5px;
-    }
     .comment-block{
         display: block !important;
         width: 100%;
     }
 
-    .button-container{
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
 
-    .button-container button {
-        width: 100%;
-        padding: 10px;
-    }
 }

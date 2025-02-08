@@ -1,6 +1,8 @@
-
 <?php
+require_once 'auth.php';
 require 'SQLOp.php';
+
+checkAccess(['superAdmin', 'admin', 'staff']);
 
 $errorCount = 0;
 $viewOp = new queryOp();// instantiating queryOp class

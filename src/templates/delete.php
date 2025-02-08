@@ -1,3 +1,7 @@
+<?php
+require 'auth.php';
+checkAccess(['superAdmin', 'admin']);
+?>
 <!doctype html>
 <html lang="en">
 <head>

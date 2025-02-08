@@ -293,40 +293,214 @@ class queryOp extends SQLOp {
 
 class updateOp extends SQLOp{// updateOp class intended to update tables
     // class variables
-    protected $statement;
+    protected $data;
 
-    public function set_table_update($tableName, $columnValue, $pValue){
-        include 'wLInventory.php';
-        $columnArray = []; // array used to dynamically bind columnValues to column names
-        $combineColumnArray =[];
-        $tableColumnValue = array_values($columnValue);
-        $tableColumnName = array_keys($columnValue);
-        $this -> SQLstring = update_string($tableName, $tableColumnName);
-        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
-        if($this -> statement === false){
-            die("SQL statement preparation failed: " . print_r($this -> conn-> errorInfo(), true));
-        }
-        for($i = 1; $i <= count($tableColumnName); $i++){
-            $columnArray [] = ":columnValue$i";
-        };
-        $combineColumnArray = array_combine($columnArray, $tableColumnValue);
-
-        foreach ($combineColumnArray as $colName => $colValue){
-            $this -> statement -> bindValue($colName, $colValue);
-        }
-        $this -> statement ->bindValue('pValue', $pValue);
+    public function set_data($inputData)
+    {
+        $this -> data = $inputData;
     }
 
-    public function update_table() {
-        try{
-            if($this -> statement -> execute()){
-                echo "Update record successfully";
-                $this -> database -> closeDB();
-            }
-        }
-        catch(PDOException $e){
-            echo "Execution not successful " . $e -> getMessage();
+    public function update_mouse() {
 
+        $mouse_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "UPDATE mice SET mouse_id = :mouse_id, name = :name, `condition` = :condition, cost = :cost, location = :location WHERE mouse_id = :mouse_id";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':mouse_id', $mouse_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record update successfully."]);
+        }
+        else {
+            echo json_encode(["success" => false, "message" => "Update failure."]);
+        }
+
+    }
+
+    public function update_accessory()
+    {
+        $acc_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $type = $this -> data['type'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "UPDATE accessories SET acc_id = :acc_id, name = :name, type = :type, `condition` = :condition, cost = :cost, location = :location WHERE acc_id = :acc_id";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':acc_id', $acc_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':type', $type);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        }
+        else{
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        }
+    }
+
+    public function update_keyboard()
+    {
+        $kb_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "UPDATE keyboards SET kb_id = :kb_id, name = :name, `condition` = :condition, cost = :cost, location = :location WHERE kb_id = :kb_id";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':kb_id', $kb_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        }
+        else{
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        }
+    }
+
+    public function update_monitor()
+    {
+        $monitor_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+        $monitorSize = $this -> data['addMonitorSize'];
+
+        $this -> SQLstring = "UPDATE monitors SET monitor_id = :monitor_id, name = :name, `condition` = :condition, cost = :cost, location = :location, size = :size WHERE monitor_id = :monitor_id";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':monitor_id', $monitor_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+        $this -> statement -> bindParam(':size', $monitorSize);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        }
+    }
+
+    public function update_motherboard()
+    {
+        $mobo_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $size = $this -> data['addMotherboardSize'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "UPDATE motherboards SET mobo_id = :mobo_id, name = :name, size = :size, `condition` = :condition, cost = :cost, location = :location WHERE mobo_id = :mobo_id";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':mobo_id', $mobo_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':size', $size);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        }
+
+    }
+
+    public function update_gpu()
+    {
+        $gpu_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "UPDATE graphicscards SET gpu_id = :gpu_id, name = :name, `condition` = :condition, cost = :cost, location = :location WHERE gpu_id = :gpu_id";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':gpu_id', $gpu_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        }
+    }
+
+    public function update_ram()
+    {
+        $ram_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $type = $this -> data['type'];
+        $speed = $this -> data['speed'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "UPDATE ramsticks SET ram_id = :ram_id, name = :name, type = :type, speed = :speed, `condition` = :condition, cost = :cost, location = :location WHERE ram_id = :ram_id";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':ram_id', $ram_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':type', $type);
+        $this -> statement -> bindParam(':speed', $speed);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if ($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        }
+
+    }
+
+    public function update_psu()
+    {
+        $psu_id = $this -> data['p_id'];
+        $name = $this -> data['name'];
+        $wattage = $this -> data['wattage'];
+        $modular = $this -> data['modular'];
+        $condition = $this -> data['condition'];
+        $cost = $this -> data['cost'];
+        $location = $this -> data['location'];
+
+        $this -> SQLstring = "UPDATE powersupplies SET psu_id = :psu_id, name = :name, wattage = :wattage, modular = :modular, `condition` = :condition, cost = :cost, location = :location WHERE psu_id = :psu_id";
+        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
+        $this -> statement -> bindParam(':psu_id', $psu_id);
+        $this -> statement -> bindParam(':name', $name);
+        $this -> statement -> bindParam(':wattage', $wattage);
+        $this -> statement -> bindParam(':modular', $modular);
+        $this -> statement -> bindParam(':condition', $condition);
+        $this -> statement -> bindParam(':cost', $cost);
+        $this -> statement -> bindParam(':location', $location);
+
+        if($this -> statement -> execute()){
+            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Insertion failure."]);
         }
     }
 }// end of class updateOp
@@ -353,7 +527,8 @@ class deleteOp extends SQLOp {// delete rows
             }
         }
         catch(PDOException $e){
-            echo "Deletion not successful " . $e -> getMessage();
+            $error_message = $e->getMessage();
+            echo json_encode(["failure" => true, "message" => $error_message]);
         }
     }
 }// end of class deleteOp
@@ -388,7 +563,8 @@ class pcSetUp extends SQLOp{
            }
        }
        catch(PDOException $e){
-        echo "error: ". $e -> getMessage();
+           $error_message = $e->getMessage();
+           echo json_encode(["failure" => true, "message" => $error_message]);
        }
     }// end of add_row function
 
@@ -404,7 +580,8 @@ class pcSetUp extends SQLOp{
             }
         }
         catch (PDOException $e) {
-            return ['error' => $e->getMessage()];
+            $error_message = $e->getMessage();
+            echo json_encode(["failure" => true, "message" => $error_message]);
         }
     }// end of view_table function
 
@@ -433,7 +610,8 @@ class pcSetUp extends SQLOp{
             }
         }
         catch(PDOException $e){
-            echo "Execution not successful " . $e -> getMessage();
+            $error_message = $e->getMessage();
+            echo json_encode(["failure" => true, "message" => $error_message]);
 
         }
     }// end of update_row function
@@ -452,7 +630,8 @@ class pcSetUp extends SQLOp{
             }
         }
         catch(PDOException $e){
-            echo "Deletion not successful " . $e -> getMessage();
+            $error_message = $e->getMessage();
+            echo json_encode(["failure" => true, "message" => $error_message]);
         }
     }//end of remove_row function
 }// end of pcSetUp class
@@ -485,5 +664,212 @@ class SearchBarcodes extends SQLOp{
         echo json_encode($this -> foundData);
     }
 }
+
+class RegistUser extends SQLOp{
+
+    public function register_user($username, $password, $email){
+
+
+        $this -> statement = $this -> conn -> prepare("INSERT INTO users (username, password, email) VALUES (:username, :password, :email)");
+        $this -> statement -> bindParam(':username', $username);
+        $this -> statement -> bindParam(':password', $password);
+        $this -> statement -> bindParam(':email', $email);
+        try{
+            if($this -> statement -> execute()){
+                echo "Record inserted successfully";
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo json_encode(["failure" => true, "message" => $error_message]);
+        }
+    }
+
+ }
+
+
+class AuthenticateUser extends SQLOp{
+    public function authenticate_user($username, $password)
+    {
+
+
+        $this->statement = $this->conn->prepare("SELECT id, password, access_level FROM users WHERE username = :username");
+        $this->statement->bindParam(':username', $username);
+        try {
+            $this->statement->execute();
+            $user = $this -> statement -> fetch(PDO::FETCH_ASSOC);
+            if (password_verify($password, $user["password"])) {
+                session_start();
+                $_SESSION["user_id"] = $user["id"];
+                $_SESSION["username"] = $username;
+                $_SESSION["access_level"] = $user["access_level"];
+                header("Location: /dashboard/"); // Redirect to dashboard
+                exit;
+            } else {
+                echo json_encode(["failure" => true, "message" => "Invalid username or password"]);
+            }
+
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo json_encode(["failure" => true, "message" => $error_message]);
+        }
+    }
+ }
+
+
+ class Users extends SQLOp{
+
+     protected $id;
+
+     protected $username;
+
+     protected $password;
+
+     protected $email;
+
+     protected $access_level;
+
+//     public function __construct($username, $password, $email, $access_level){
+//         $this->username = $username;
+//         $this->password = $password;
+//     }
+
+     public function set_username($username){
+         $this->username = $username;
+     }
+
+     public function set_password($password){
+         $this->password = $password;
+     }
+
+     public function set_email($email){
+         $this->email = $email;
+     }
+
+     public function set_access_level($access_level){
+         $this->access_level = $access_level;
+     }
+
+
+    public function get_users(){
+        $this->statement = $this->conn->prepare("SELECT id, username, email, access_level FROM users");
+        try {
+            $this->statement->execute();
+            $users = $this -> statement -> fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($users);
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo json_encode(["failure" => true, "message" => $error_message]);
+        }
+    }
+
+    public function create_user() {
+
+         $username = $this->username;
+         $password = $this->password;
+         $email = $this->email;
+         $access_level = $this->access_level;
+
+        $this->statement = $this->conn->prepare("INSERT INTO users (username, password, email, access_level) VALUES (:username, :password, :email, :access_level)");
+        $this->statement->bindParam(':username', $username);
+        $this->statement->bindParam(':password', $password);
+        $this->statement->bindParam(':email', $email);
+        $this->statement->bindParam(':access_level', $access_level);
+
+        try {
+            if($this->statement->execute()) {
+                echo json_encode(["success" => true, "message" => "User created successfully"]);
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo json_encode(["failure" => true, "message" => $error_message]);
+        }
+    }
+
+    public function delete_user() {
+         $id = $this->id;
+
+         $this->statement = $this->conn->prepare("DELETE FROM users WHERE id = :id");
+         $this->statement->bindParam(':id', $id);
+
+         try {
+             if($this->statement->execute()) {
+                 echo json_encode(["success" => true, "message" => "User deleted successfully"]);
+             }
+         } catch (PDOException $e) {
+             $error_message = $e->getMessage();
+             echo json_encode(["failure" => true, "message" => $error_message]);
+         }
+    }
+
+    public function update_username() {
+         $id = $this->id;
+         $username = $this->username;
+         $this->statement = $this->conn->prepare("UPDATE users SET username = :username WHERE id = :id");
+         $this->statement->bindParam(':username', $username);
+         $this->statement->bindParam(':id', $id);
+
+         try {
+             if($this->statement->execute()) {
+                 echo json_encode(["success" => true, "message" => "User updated successfully"]);
+             }
+         } catch (PDOException $e) {
+             $error_message = $e->getMessage();
+             echo json_encode(["failure" => true, "message" => $error_message]);
+         }
+    }
+
+    public function update_password() {
+         $id = $this->id;
+         $password = $this->password;
+         $this->statement = $this->conn->prepare("UPDATE users SET password = :password WHERE id = :id");
+         $this->statement->bindParam(':password', $password);
+         $this->statement->bindParam(':id', $id);
+
+         try {
+             if($this->statement->execute()) {
+                 echo json_encode(["success" => true, "message" => "User updated successfully"]);
+             }
+         } catch (PDOException $e) {
+             $error_message = $e->getMessage();
+             echo json_encode(["failure" => true, "message" => $error_message]);
+         }
+    }
+
+    public function update_email() {
+         $id = $this->id;
+         $email = $this->email;
+         $this->statement = $this->conn->prepare("UPDATE users SET email = :email WHERE id = :id");
+         $this->statement->bindParam(':email', $email);
+         $this->statement->bindParam(':id', $id);
+
+         try {
+             if($this->statement->execute()) {
+                 echo json_encode(["success" => true, "message" => "User updated successfully"]);
+             }
+         } catch (PDOException $e) {
+             $error_message = $e->getMessage();
+             echo json_encode(["failure" => true, "message" => $error_message]);
+         }
+
+    }
+
+     public function update_access_level() {
+         $id = $this->id;
+         $access_level = $this->access_level;
+         $this->statement = $this->conn->prepare("UPDATE users SET access_level = :access_level WHERE id = :id");
+         $this->statement->bindParam(':access_level', $access_level);
+         $this->statement->bindParam(':id', $id);
+
+         try {
+             if($this->statement->execute()) {
+                 echo json_encode(["success" => true, "message" => "User updated successfully"]);
+             }
+         } catch (PDOException $e) {
+             $error_message = $e->getMessage();
+             echo json_encode(["failure" => true, "message" => $error_message]);
+         }
+     }
+ }
+
 
 ?>
