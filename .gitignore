@@ -1,5 +1,5 @@
 .env
-.env.local
+database.local.php
 /src/.env
 /src2
 src/.env
