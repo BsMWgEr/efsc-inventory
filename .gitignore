@@ -1,4 +1,5 @@
 .env
+.env.local
 /src/.env
 /src2
 src/.env
