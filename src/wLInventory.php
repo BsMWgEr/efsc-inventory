@@ -1,6 +1,17 @@
 <?php
 // Created by Aaron C. 10/08/2024
-   $db = 'database.php';
+// database.local is for local development
+// database.php is for production
+
+// comment/uncomment for proper environment
+if ($_SERVER['REMOTE_ADDR'] != '127.0.0.1' && $_SERVER['REMOTE_ADDR'] != '::1' && $_SERVER['REMOTE_ADDR'] != 'localhost') {
+    require 'classes/database/DatabaseProduction.php';
+    $db = 'DatabaseProduction.php';
+} else {
+    require 'classes/database/DatabaseDevelopment.php';
+    $db = 'DatabaseDevelopment.php';
+}
+
    $sSQLS = "selectSQLString.php";
    $sOP = 'SQLOp.php';
    $wordList = ["p_id", "name", "condition", "cost", "location", "type", "size", "addMonitorSize", "speed", "wattage", "modular", "addMotherboardSize"];

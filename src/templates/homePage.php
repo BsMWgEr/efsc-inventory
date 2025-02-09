@@ -8,10 +8,11 @@ checkAccess(['superAdmin', 'admin', 'staff']);
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="/images/icon.png">
         <link rel="stylesheet" href="/css/homepage.css">
         <link rel="stylesheet" href="/css/formStyle.css">
         <link rel="stylesheet" href="/css/navbar.css">
-        <title>Cyber Lab Inventory Home Page</title>
+        <title>Cyber Lab</title>
     </head>
     
     <body>
@@ -84,6 +85,6 @@ checkAccess(['superAdmin', 'admin', 'staff']);
         <footer>Cyber Range</footer>
         <script>
         </script>
-        <script src="../cyberScript.js"></script>
+        <script src="../javascript/cyberScript.js"></script>
     </body>
 </html>

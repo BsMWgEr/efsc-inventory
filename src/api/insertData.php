@@ -1,13 +1,13 @@
 <?php
 require_once 'auth.php';
 require 'SQLOp.php';
-require 'validators.php';
+require 'mixins/validators.php';
 
 checkAccess(['superAdmin', 'admin', 'staff']);
 
 $errorCount = 0;
 
-$insertOP = new insertOp(); // instantiating deleteOp class
+$insertOP = new Create(); // instantiating deleteOp class
 $table_name = $_POST['tableSelect'];
 
 if($errorCount == 0) {

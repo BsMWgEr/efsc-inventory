@@ -4,9 +4,9 @@ require 'SQLOp.php';
 
 checkAccess(['superAdmin']);
 
-$userAdmin = new Users();
+$userAdmin = new UserQuery();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $userAdmin -> connect();
-    $userAdmin -> get_users();
+    $userAdmin -> query_users();
 }

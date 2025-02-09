@@ -1,5 +1,5 @@
 .env
-database.local.php
+/classes/DatabaseDevelopment.php
 /src/.env
 /src2
 src/.env

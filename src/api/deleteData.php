@@ -1,7 +1,7 @@
 <?php
 require_once 'auth.php';
 require 'SQLOp.php';
-require 'validators.php';
+require 'mixins/validators.php';
 
 checkAccess(['superAdmin', 'admin']);
 

@@ -7,7 +7,7 @@ checkAccess(['superAdmin', 'admin', 'staff']);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $table_name = $_POST["tableUpdate"];
 
-    $updateOP = new UpdateOp();
+    $updateOP = new Update();
     $updateOP -> connect();
     $updateOP -> set_data($_POST);
 

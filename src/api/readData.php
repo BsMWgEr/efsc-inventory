@@ -5,7 +5,7 @@ require 'SQLOp.php';
 checkAccess(['superAdmin', 'admin', 'staff']);
 
 $errorCount = 0;
-$viewOp = new queryOp();// instantiating queryOp class
+$viewOp = new Read();// instantiating queryOp class
 $table_name = $_POST['tableView'];
 
 if($errorCount == 0) {

@@ -4,13 +4,15 @@ require 'SQLOp.php';
 
 
 
-$auth = new AuthenticateUser();
+$auth = new Users();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST["username"]);
     $password = trim($_POST["password"]);
     $auth -> connect();
-    $auth -> authenticate_user($username, $password);
+    $auth -> set_username($username);
+    $auth -> set_password($password);
+    $auth -> authenticate_user();
 
 }
 

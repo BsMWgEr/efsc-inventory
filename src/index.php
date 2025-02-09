@@ -37,7 +37,7 @@ switch ($request) {
 
     case '/query-data':
     case '/query-data/':
-        require __DIR__ . $viewDir2 . 'viewData.php';
+        require __DIR__ . $viewDir2 . 'readData.php';
         break;
 
     case '/insert-data':
@@ -63,11 +63,6 @@ switch ($request) {
     case '/register':
     case '/register/':
         require __DIR__ . $viewDir . 'register.php';
-        break;
-
-    case '/registration':
-    case '/registration/':
-        require __DIR__ . $viewDir2 . 'registration.php';
         break;
 
     case '/logout':
@@ -97,10 +92,10 @@ switch ($request) {
 
     case '/access-denied/':
     case '/access-denied':
-        require __DIR__ . $viewDir . 'access-denied.php';
+        require __DIR__ . $viewDir . 'error_templates/access-denied.php';
         break;
 
     default:
         http_response_code(404);
-        require __DIR__ . $viewDir . '404.php';
+        require __DIR__ . $viewDir . 'error_templates/404.php';
 }
