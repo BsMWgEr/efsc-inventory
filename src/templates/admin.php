@@ -12,6 +12,9 @@ checkAccess(['superAdmin']);
     <link rel="stylesheet" href="/css/navbar.css">
     <title>Administration</title>
     <style>
+        main {
+            margin-top: 100px;
+        }
         table {
             border-collapse: separate;
             width: 100%;
@@ -34,7 +37,7 @@ checkAccess(['superAdmin']);
 </head>
 <body>
 <?php include 'navbar.php'; ?>
-
+<main>
 <div class="admin-nav">
     <button class="admin-nav-btn" type="button" onclick="ShowCreateUserForm()">Add User</button>
 </div>
@@ -57,7 +60,8 @@ checkAccess(['superAdmin']);
         <button type="button" onclick="HideCreateUserForm()">Cancel</button>
     </form>
 </div>
-
+</main>
+<script src="/javascript/nav-menu.js" type="text/javascript"></script>
 <script>
     async function GetUsers() {
         const response = await fetch('/get-users/')

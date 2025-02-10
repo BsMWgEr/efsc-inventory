@@ -20,6 +20,6 @@ checkAccess(['superAdmin']);
     <input type="password" name="password" placeholder="Password" required>
     <button type="submit">Register</button>
 </form>
-
+<script src="/javascript/nav-menu.js" type="text/javascript"></script>
 </body>
 </html>

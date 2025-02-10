@@ -14,8 +14,8 @@ checkAccess(['superAdmin', 'admin', 'staff']);
         <link rel="stylesheet" href="/css/navbar.css">
         <title>Cyber Lab</title>
     </head>
-    
     <body>
+    <main>
     <?php include 'navbar.php'; ?>
         <h1 style="text-align: center" id='header'>Cyber Lab Inventory Home Page</h1>
         <p id="pcSetUp-table" name="pcSetUp-table" class="table"></p>
@@ -82,9 +82,9 @@ checkAccess(['superAdmin', 'admin', 'staff']);
                 </div>
             </fieldset>
         </form>
-        <footer>Cyber Range</footer>
-        <script>
-        </script>
+    <footer>Cyber Range</footer>
+    </main>
+    <script src="/javascript/nav-menu.js" type="text/javascript"></script>
         <script src="../javascript/cyberScript.js"></script>
     </body>
 </html>

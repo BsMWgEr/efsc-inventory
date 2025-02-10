@@ -102,6 +102,7 @@ checkAccess(['superAdmin', 'admin']);
 
     </main>
 <footer>Cyber Range</footer>
+<script src="/javascript/nav-menu.js" type="text/javascript"></script>
 <script>
 
     function DisplayData(data) {

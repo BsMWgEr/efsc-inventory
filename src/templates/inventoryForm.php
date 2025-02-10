@@ -194,105 +194,107 @@ checkAccess(['superAdmin', 'admin', 'staff']);
 </main>
 <div id="queryDisplay" class="queryDisplay"></div>
 
+<script src="cyberScript.js"></script>
+<script src="/javascript/nav-menu.js" type="text/javascript"></script>
+<script>
+    async function ViewTable() {
+        const response = await fetch('/query-data/', {
+            method: 'POST',
+            body: new FormData(document.getElementById('form2'))
+        })
+        const data = await response.json()
+        console.log(data)
+        let table_name = document.getElementById('table').selectedOptions[0].text
+        let table_name_display = document.createElement('h2')
+        table_name_display.innerHTML = table_name
+        const table = document.getElementById('queryDisplay')
+        table.appendChild(table_name_display)
+        table.classList.add('display-flex')
+        document.querySelector('main').classList.add('display-none')
 
-</body>
-    <script src="cyberScript.js"></script>
-    <script>
-        async function ViewTable() {
-            const response = await fetch('/query-data/', {
-                method: 'POST',
-                body: new FormData(document.getElementById('form2'))
-            })
-            const data = await response.json()
-            console.log(data)
-            let table_name = document.getElementById('table').selectedOptions[0].text
-            let table_name_display = document.createElement('h2')
-            table_name_display.innerHTML = table_name
-            const table = document.getElementById('queryDisplay')
-            table.appendChild(table_name_display)
-            table.classList.add('display-flex')
-            document.querySelector('main').classList.add('display-none')
-
-            if (!data.failure) {
-                const option = document.createElement('table')
-                table.appendChild(option)
-                let keys = data[0]
-                keys = Object.keys(keys)
-                console.log(keys)
-                const element = document.createElement('thead')
-                for (let i = 0; i < keys.length; i++) {
-                    let header = document.createElement('th')
-                    header.innerHTML = keys[i]
-                    element.appendChild(header)
-                }
-                option.appendChild(element)
-                const table_body = document.createElement('tbody')
-                option.appendChild(table_body)
-                for (let i = 0; i < data.length; i++) {
-                    let row = document.createElement('tr')
-                    table_body.appendChild(row)
-                    let id_name
-                    for (let j = 0; j < keys.length; j++) {
-                        if (j === 0) {
-                            id_name = data[i][keys[j]]
-                        }
-                        let cell = document.createElement('td')
-                        cell.innerHTML = data[i][keys[j]]
-                        row.appendChild(cell)
+        if (!data.failure) {
+            const option = document.createElement('table')
+            table.appendChild(option)
+            let keys = data[0]
+            keys = Object.keys(keys)
+            console.log(keys)
+            const element = document.createElement('thead')
+            for (let i = 0; i < keys.length; i++) {
+                let header = document.createElement('th')
+                header.innerHTML = keys[i]
+                element.appendChild(header)
+            }
+            option.appendChild(element)
+            const table_body = document.createElement('tbody')
+            option.appendChild(table_body)
+            for (let i = 0; i < data.length; i++) {
+                let row = document.createElement('tr')
+                table_body.appendChild(row)
+                let id_name
+                for (let j = 0; j < keys.length; j++) {
+                    if (j === 0) {
+                        id_name = data[i][keys[j]]
                     }
+                    let cell = document.createElement('td')
+                    cell.innerHTML = data[i][keys[j]]
+                    row.appendChild(cell)
                 }
-            } else {
-                let message = document.createElement('p')
-                message.innerHTML = 'No data to display. Empty table.'
-                table.appendChild(message)
             }
-            let button = document.createElement('button')
-            button.innerHTML = 'Back'
-            button.setAttribute('onclick', 'BackToMain()')
-            button.setAttribute('class', 'table-view-return-btn')
-            table.appendChild(button)
-            if (data.failure) {
-                alert(data.message)
-            }
+        } else {
+            let message = document.createElement('p')
+            message.innerHTML = 'No data to display. Empty table.'
+            table.appendChild(message)
         }
-
-        function BackToMain() {
-            document.querySelector('main').classList.remove('display-none')
-            document.getElementById('queryDisplay').classList.remove('display-flex')
-            document.getElementById('queryDisplay').classList.add('display-none')
-            document.getElementById('table').selectedIndex = 0
-            document.getElementById('queryDisplay').innerHTML = ''
-        }
-
-        async function InsertRow() {
-            const response = await fetch('/insert-data/', {
-                method: 'POST',
-                body: new FormData(document.getElementById('insertForm'))
-            })
-            const data = await response.json()
-            console.log(data)
-            if (!data.failure) {
-                alert('Row inserted successfully')
-                clearForm('insertForm')
-            } else {
+        let button = document.createElement('button')
+        button.innerHTML = 'Back'
+        button.setAttribute('onclick', 'BackToMain()')
+        button.setAttribute('class', 'table-view-return-btn')
+        table.appendChild(button)
+        if (data.failure) {
             alert(data.message)
-            }
         }
+    }
 
-        async function UpdateRow() {
-            const response = await fetch('/update-data/', {
-                method: 'POST',
-                body: new FormData(document.getElementById('updateForm'))
-            })
-            const data = await response.json()
-            console.log(data)
-            if (!data.failure) {
-                alert('Row updated successfully')
-                clearForm('updateForm')
-            } else {
+    function BackToMain() {
+        document.querySelector('main').classList.remove('display-none')
+        document.getElementById('queryDisplay').classList.remove('display-flex')
+        document.getElementById('queryDisplay').classList.add('display-none')
+        document.getElementById('table').selectedIndex = 0
+        document.getElementById('queryDisplay').innerHTML = ''
+    }
+
+    async function InsertRow() {
+        const response = await fetch('/insert-data/', {
+            method: 'POST',
+            body: new FormData(document.getElementById('insertForm'))
+        })
+        const data = await response.json()
+        console.log(data)
+        if (!data.failure) {
+            alert('Row inserted successfully')
+            clearForm('insertForm')
+        } else {
             alert(data.message)
-            }
         }
+    }
 
-    </script>
+    async function UpdateRow() {
+        const response = await fetch('/update-data/', {
+            method: 'POST',
+            body: new FormData(document.getElementById('updateForm'))
+        })
+        const data = await response.json()
+        console.log(data)
+        if (!data.failure) {
+            alert('Row updated successfully')
+            clearForm('updateForm')
+        } else {
+            alert(data.message)
+        }
+    }
+
+</script>
+</body>
+
+
 </html><!--End of html page-->

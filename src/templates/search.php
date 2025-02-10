@@ -145,7 +145,7 @@ checkAccess(['superAdmin', 'admin', 'staff']);
     <div id="search-results" class="search-results" ></div>
 <footer>Cyber Range</footer>
 </main>
-</body>
+<script src="/javascript/nav-menu.js" type="text/javascript"></script>
 <script>
     async function search() {
         if (document.getElementById('search-form').searchKey.value === '') {
@@ -257,4 +257,7 @@ checkAccess(['superAdmin', 'admin', 'staff']);
     //
     // moveBalls(); // Start the animation
 </script>
+</body>
+
+
 </html>

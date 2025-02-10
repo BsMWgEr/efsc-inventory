@@ -3,6 +3,7 @@
 $request = $_SERVER['REQUEST_URI'];
 $viewDir = '/templates/';
 $viewDir2 = '/api/';
+$jsDir = '/javascript/';
 
 switch ($request) {
     case '':

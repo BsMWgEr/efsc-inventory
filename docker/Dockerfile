@@ -11,7 +11,7 @@ RUN docker-php-ext-install pdo pdo_mysql
 WORKDIR /var/www/html
 
 # Copy the application files into the container
-COPY ./src/ /var/www/html/
+COPY ../src /var/www/html/
 
 # Expose the port Apache runs on
 EXPOSE 80

@@ -11,16 +11,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css/navbar.css">
     <style>
-
+        margin-top: 100px;
     </style>
     <title>Dashboard</title>
 </head>
 <body>
 <?php include 'navbar.php'; ?>
+<main>
 
-<script>
+</main>
 
-
-</script>
+<script src="/javascript/nav-menu.js" type="text/javascript"></script>
 </body>
 </html>

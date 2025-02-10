@@ -1,6 +1,7 @@
 
 services:
   php-apache:
+    #image: "jmcgaha/inventory:test"
     build:
       context: .
       dockerfile: docker/Dockerfile
@@ -22,7 +23,7 @@ services:
 
   mysql:
     image: mysql:8.0
-    container_name: mysql_db
+    container_name: mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -49,3 +50,4 @@ services:
 
 volumes:
   mysql_data:
+    driver: local
