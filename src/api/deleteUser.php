@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $delOp = new UserDelete();
     $delOp -> connect();
-    $delOp -> set_username($_POST['username']);
-    $delOp -> delete_user();
+    $response = $delOp -> delete_user($_POST["id"]);
+    echo $response;
 
 }

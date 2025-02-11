@@ -16,7 +16,8 @@ if($errorCount == 0) {
         echo json_encode(["failure" => true, "message" => "Table does not exist"]);
     } else {
         $viewOp -> query_table();
-        $viewOp -> print_table();
+        $response = $viewOp -> print_table();
+        echo $response;
         }
     } else{
         echo json_encode(["failure" => true, "message" => "No form data recieved"]);

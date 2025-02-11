@@ -1,17 +1,27 @@
-function showNeededFields(table, accessories, monitors, motherboards, ramsticks, powersupplies){
-    // declared variables
-    const tableSelect = document.getElementById(table).value;
-    const accessoryField = document.getElementById(accessories);
-    const monitorsFields = document.getElementById(monitors);
-    const motherboardsFields = document.getElementById(motherboards);
-    const ramsticksFields = document.getElementById(ramsticks);
-    const powerSupplyFields = document.getElementById(powersupplies);
-
+function HideOptions() {
     accessoryField.classList.add('hidden');
     monitorsFields.classList.add('hidden');
     motherboardsFields.classList.add('hidden');
     ramsticksFields.classList.add('hidden');
     powerSupplyFields.classList.add('hidden');
+}
+
+
+let accessoryField = ""
+let monitorsFields = ""
+let motherboardsFields = ""
+let ramsticksFields = ""
+let powerSupplyFields = ""
+function showNeededFields(table, accessories, monitors, motherboards, ramsticks, powersupplies){
+    // declared variables
+    let tableSelect = document.getElementById(table).value;
+    accessoryField = document.getElementById(accessories);
+    monitorsFields = document.getElementById(monitors);
+    motherboardsFields = document.getElementById(motherboards);
+    ramsticksFields = document.getElementById(ramsticks);
+    powerSupplyFields = document.getElementById(powersupplies);
+
+    HideOptions()
 
     if(tableSelect === 'accessories') {
         accessoryField.classList.remove('hidden');
@@ -34,7 +44,7 @@ function showNeededFields(table, accessories, monitors, motherboards, ramsticks,
 function clearForm(formId){
     formValue = document.getElementById(formId);
     formValue.reset();
-    showNeededFields(); // reset for all hidden entries
+    HideOptions() // reset for all hidden entries
 }
 
 // function to fetchTable pcSetUp which is for the main table that keeps track of computers currently on the lab floor

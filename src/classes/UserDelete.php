@@ -2,8 +2,7 @@
 
 class UserDelete extends Users
 {
-    public function delete_user() {
-        $id = $this->id;
+    public function delete_user($id) {
 
         $this->statement = $this->conn->prepare("DELETE FROM users WHERE id = :id");
         $this->statement->bindParam(':id', $id);

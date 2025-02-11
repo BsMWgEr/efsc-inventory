@@ -33,32 +33,68 @@ checkAccess(['superAdmin']);
         td {
             background-color: #E6E6FA;
         }
+
+        form input, form select {
+            font-size: 16pt;
+            border-radius: 50px;
+            padding: 5px;
+            border: none;
+            background: white;
+
+            color: black;
+            text-align: center;
+            box-shadow: 0 0 10px black;
+            margin: 10px;
+            transition: 0.5s;
+        }
+        form input:hover, form select:hover {
+            box-shadow: none;
+            background: #32635F;
+            color: white;
+            transition: 0.5s;
+        }
+        form button, .delete-user-btn, .edit-user-btn {
+            width: 50%;
+            padding: 10px;
+            color: #32635F;
+            background: black;
+            border: 1px solid #32635F;
+        }
+        form button:hover, .delete-user-btn:hover, .edit-user-btn:hover {
+            background: #32635F;
+            color: white;
+            border-radius: 50px;
+            box-shadow: black 0 0 10px;
+            transition: 0.5s;
+        }
+        form {
+            display: flex;
+            flex-direction: row;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
 <?php include 'navbar.php'; ?>
 <main>
-<div class="admin-nav">
-    <button class="admin-nav-btn" type="button" onclick="ShowCreateUserForm()">Add User</button>
-</div>
 
 <div>
     <h1>Administration</h1>
-    <div id="users-list"></div>
+
     <form id="createUserForm" name="createUserForm" hidden>
-        <input type="text" id="username" name="username" value="" placeholder="Username" />
-        <input type="password" id="password" name="password" value="" placeholder="Password" />
-        <input type="password" id="password2" name="password2" value="" />
-        <input type="text" id="email" name="email" value="" placeholder="Email" />
-        <select name="access_level" id="access_level">
+        <input required type="text" id="username" name="username" value="" placeholder="Username" />
+        <input required type="password" id="password" name="password" value="" placeholder="Password" />
+        <input required type="password" id="password2" name="password2" value="" placeholder="re-enter password" />
+        <input required type="text" id="email" name="email" value="" placeholder="Email" />
+        <select required name="access_level" id="access_level">
             <option disabled selected value> -- Select Access Level -- </option>
             <option value="staff">Staff</option>
             <option value="admin">Admin</option>
             <option value="superadmin">Super-Admin</option>
         </select>
         <button type="button" onclick="create_user()">Create User</button>
-        <button type="button" onclick="HideCreateUserForm()">Cancel</button>
     </form>
+    <div id="users-list"></div>
 </div>
 </main>
 <script src="/javascript/nav-menu.js" type="text/javascript"></script>
@@ -88,8 +124,10 @@ checkAccess(['superAdmin']);
             let header = document.createElement('th')
             header.innerHTML = keys[i]
             element.appendChild(header)
+            console.log(header)
         }
         option.appendChild(element)
+        console.log(element)
         const table_body = document.createElement('tbody')
         option.appendChild(table_body)
         for (let i = 0; i < data.length; i++) {
@@ -103,10 +141,11 @@ checkAccess(['superAdmin']);
                 let cell = document.createElement('td')
                 cell.innerHTML = data[i][keys[j]]
                 row.appendChild(cell)
+                console.log(data[i][keys[j]])
             }
             let button = document.createElement('button')
             button.innerHTML = 'Delete'
-            button.setAttribute('onclick', `DeleteUser('')`)
+            button.setAttribute('onclick', `delete_user(${id_name})`)
             button.classList.add('delete-user-btn')
             row.appendChild(button)
             let button2 = document.createElement('button')
@@ -134,6 +173,35 @@ checkAccess(['superAdmin']);
     }
 
     async function create_user() {
+        let uname = document.getElementById('username').value
+        let p1 =document.getElementById('password').value
+        let p2 = document.getElementById('password2').value
+        let em = document.getElementById('email').value
+        let ac = document.getElementById('access_level').value
+        if (uname === '' || p1 === '' || p2 === '' || em === '' || ac === '') {
+            alert('Please fill out all fields')
+            return
+        }
+        if (p1 !== p2) {
+            alert('Passwords do not match')
+            p1.value = ''
+            p2.value = ''
+            return
+        }
+        if (p1.length < 8) {
+            alert('Password must be at least 8 characters long')
+            return
+        }
+
+        if (uname.length < 3) {
+            alert('Username must be at least 3 characters long')
+            return
+        }
+        if (em.includes('@') === false || em.includes('.') === false) {
+            alert('Email must be valid')
+            return
+        }
+
         const response = await fetch('/create-user/', {
             method: 'POST',
             body: new FormData(document.getElementById('createUserForm'))
@@ -144,20 +212,32 @@ checkAccess(['superAdmin']);
             alert(data.message)
         } else {
             document.getElementById('createUserForm').reset()
-            HideCreateUserForm()
             alert(data.message)
             GetUsers()
         }
     }
 
-    function ShowCreateUserForm() {
-        document.getElementById('createUserForm').hidden = false
+    async function delete_user(user_id) {
+        let form_data = new FormData()
+        form_data.append('id', user_id)
+        console.log(form_data)
+
+        const response = await fetch('/delete-user/', {
+            method: 'POST',
+            body: form_data
+        }
+        )
+        const data = await response.json()
+        console.log(data)
+        if (data.failure) {
+            alert(data.message)
+        } else {
+            alert(data.message)
+            await GetUsers()
+        }
     }
 
-    function HideCreateUserForm() {
-        document.getElementById('createUserForm').reset()
-        document.getElementById('createUserForm').hidden = true
-    }
+
 
 
 

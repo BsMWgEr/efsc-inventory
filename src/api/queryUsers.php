@@ -8,5 +8,5 @@ $userAdmin = new UserQuery();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $userAdmin -> connect();
-    $userAdmin -> query_users();
+    echo $userAdmin -> query_users();
 }

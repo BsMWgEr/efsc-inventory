@@ -12,6 +12,7 @@ $searchObject = new Search(); // instantiating deleteOp class
 $searchKey = $_POST['searchKey'];
 if($errorCount == 0) {
     $searchObject -> connect();
-    $searchObject -> search_barcode($searchKey);
+    $data = $searchObject -> search_barcode($searchKey);
+    echo $data;
 
 }

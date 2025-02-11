@@ -13,21 +13,24 @@ $table_name = $_POST['tableSelect'];
 if($errorCount == 0) {
     $insertOP -> connect();
     $insertOP -> set_data($_POST);
+    $response = json_encode(["success" => false, "message" => "Something went wrong. Request did not succeed"]);
     if ($table_name == "accessories") {
-        $insertOP -> insert_accessory();
+        $response = $insertOP -> insert_accessory();
     } else if ($table_name == "keyboards") {
-        $insertOP -> insert_keyboard();
+        $response = $insertOP -> insert_keyboard();
     } else if ($table_name == "mice") {
-        $insertOP -> insert_mouse();
+        $response = $insertOP -> insert_mouse();
     } else if ($table_name == "monitors") {
-        $insertOP -> insert_monitor();
+        $response = $insertOP -> insert_monitor();
     } else if ($table_name == "graphicscards") {
-        $insertOP -> insert_gpu();
+        $response = $insertOP -> insert_gpu();
     } else if ($table_name == "ramsticks") {
-        $insertOP -> insert_ram();
+        $response = $insertOP -> insert_ram();
     } else if ($table_name == "motherboards") {
-        $insertOP -> insert_motherboard();
+        $response = $insertOP -> insert_motherboard();
     } else if ($table_name == "powersupplies") {
-        $insertOP -> insert_psu();
+        $response = $insertOP -> insert_psu();
     }
+
+    echo $response;
 }

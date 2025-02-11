@@ -25,6 +25,6 @@ class Search extends SQLOp{
                 echo "Error: " . $e->getMessage();
             }
         }
-        echo json_encode($this -> foundData);
+        return json_encode($this -> foundData);
     }
 }

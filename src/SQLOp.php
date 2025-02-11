@@ -10,7 +10,7 @@ require 'classes/Read.php';
 // Class updateOp to update an existing table
 require 'classes/Update.php';
 //
-require 'classes/Delete.php';
+require 'classes/DeleteData.php';
 //
 require 'classes/Search.php';
 //

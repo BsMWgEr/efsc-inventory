@@ -33,8 +33,9 @@ class Read extends SQLOp {
     // Print table as JSON
     public function print_table() {
 
+
         $headStmts = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo (json_encode($headStmts));
+        return (json_encode($headStmts));
 
 
     }

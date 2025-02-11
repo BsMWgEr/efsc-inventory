@@ -15,6 +15,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $auth -> authenticate_user();
 
 }
-
-
-?>

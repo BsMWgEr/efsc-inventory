@@ -18,7 +18,7 @@ if ($_SERVER['REMOTE_ADDR'] != '127.0.0.1' && $_SERVER['REMOTE_ADDR'] != '::1' &
    $tableList = ["keyboards", "table"];
    $description_k = ["key board ID", "computer ID", "key board name", "Condition of part", "Keyboard cost",
                      "Keyboard location", "input for table name"];
-   $tableNames = ["mice", "monitors", "motherboards", "powersupplies", "ramsticks", "keyboards"];
+   $tableNames = ["accessories", "mice", "monitors", "motherboards", "powersupplies", "ramsticks", "keyboards", "graphicscards"];
 
 
  if (!function_exists('find_ID')) {

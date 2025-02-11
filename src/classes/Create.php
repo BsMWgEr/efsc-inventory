@@ -26,11 +26,13 @@ class Create extends SQLOp
         $this -> statement -> bindParam(':cost', $cost);
         $this -> statement -> bindParam(':location', $location);
 
-        if($this -> statement -> execute()){
-            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
-        }
-        else{
-            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        try {
+            if($this->statement->execute()) {
+                return json_encode(["success" => true, "message" => "User updated successfully"]);
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            return json_encode(["failure" => true, "message" => $error_message]);
         }
 
     }
@@ -39,7 +41,7 @@ class Create extends SQLOp
     {
         $acc_id = $this -> data['p_id'];
         $name = $this -> data['name'];
-        $type = $this -> data['type'];
+        $type = $this -> data['insert-type'];
         $condition = $this -> data['condition'];
         $cost = $this -> data['cost'];
         $location = $this -> data['location'];
@@ -53,11 +55,13 @@ class Create extends SQLOp
         $this -> statement -> bindParam(':cost', $cost);
         $this -> statement -> bindParam(':location', $location);
 
-        if($this -> statement -> execute()){
-            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
-        }
-        else{
-            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        try {
+            if($this->statement->execute()) {
+                return json_encode(["success" => true, "message" => "User updated successfully"]);
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            return json_encode(["failure" => true, "message" => $error_message]);
         }
     }
 
@@ -77,11 +81,13 @@ class Create extends SQLOp
         $this -> statement -> bindParam(':cost', $cost);
         $this -> statement -> bindParam(':location', $location);
 
-        if($this -> statement -> execute()){
-            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
-        }
-        else{
-            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        try {
+            if($this->statement->execute()) {
+                return json_encode(["success" => true, "message" => "User updated successfully"]);
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            return json_encode(["failure" => true, "message" => $error_message]);
         }
     }
 
@@ -103,10 +109,13 @@ class Create extends SQLOp
         $this -> statement -> bindParam(':location', $location);
         $this -> statement -> bindParam(':size', $monitorSize);
 
-        if($this -> statement -> execute()){
-            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
-        } else {
-            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        try {
+            if($this->statement->execute()) {
+                return json_encode(["success" => true, "message" => "User updated successfully"]);
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            return json_encode(["failure" => true, "message" => $error_message]);
         }
     }
 
@@ -128,10 +137,13 @@ class Create extends SQLOp
         $this -> statement -> bindParam(':cost', $cost);
         $this -> statement -> bindParam(':location', $location);
 
-        if($this -> statement -> execute()){
-            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
-        } else {
-            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        try {
+            if($this->statement->execute()) {
+                return json_encode(["success" => true, "message" => "User updated successfully"]);
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            return json_encode(["failure" => true, "message" => $error_message]);
         }
 
     }
@@ -152,10 +164,13 @@ class Create extends SQLOp
         $this -> statement -> bindParam(':cost', $cost);
         $this -> statement -> bindParam(':location', $location);
 
-        if($this -> statement -> execute()){
-            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
-        } else {
-            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        try {
+            if($this->statement->execute()) {
+                return json_encode(["success" => true, "message" => ["gpu_id" => $gpu_id, "name" => $name, "condition" => $condition, "cost" => $cost, "location" => $location]]);
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            return json_encode(["failure" => true, "message" => $error_message]);
         }
     }
 
@@ -179,10 +194,13 @@ class Create extends SQLOp
         $this -> statement -> bindParam(':cost', $cost);
         $this -> statement -> bindParam(':location', $location);
 
-        if ($this -> statement -> execute()){
-            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
-        } else {
-            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        try {
+            if($this->statement->execute()) {
+                return json_encode(["success" => true, "message" => "User updated successfully"]);
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            return json_encode(["failure" => true, "message" => $error_message]);
         }
 
     }
@@ -207,10 +225,13 @@ class Create extends SQLOp
         $this -> statement -> bindParam(':cost', $cost);
         $this -> statement -> bindParam(':location', $location);
 
-        if($this -> statement -> execute()){
-            echo json_encode(["success" => true, "message" => "Record inserted successfully."]);
-        } else {
-            echo json_encode(["success" => false, "message" => "Insertion failure."]);
+        try {
+            if($this->statement->execute()) {
+                return json_encode(["success" => true, "message" => "User updated successfully"]);
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            return json_encode(["failure" => true, "message" => $error_message]);
         }
     }
 

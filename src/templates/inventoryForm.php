@@ -11,7 +11,34 @@ checkAccess(['superAdmin', 'admin', 'staff']);
     <link rel="stylesheet" href="/css/formStyle.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/forms.css">
+    <style>
+        .floating-box {
+            position: fixed;
+            top: 20%;
+            right: -300px; /* Initially off-screen */
+            width: 200px;
+            padding: 15px;
+            background-color: orangered;
+            color: black;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: right 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
 
+        /* Show the box */
+        .show {
+            right: 20px; /* Moves into view */
+            opacity: 1;
+        }
+
+        /* Hide the box */
+        .hide {
+            right: -300px;
+            opacity: 0;
+        }
+    </style>
     <title>Cyber Range Tables</title>
 </head>
 <body>
@@ -52,7 +79,7 @@ checkAccess(['superAdmin', 'admin', 'staff']);
             
             <div id="addAccessoryFields" class="hidden">
                 <label for="type">Asscessory type</label><br>
-                <input type="text" id="type" name="type" value="" placeholder="Type of Acc."/><br>
+                <input type="text" id="type" name="insert-type" value="" placeholder="Type of Acc."/><br>
             </div>
 
             <div id="addMonitorsFields" class="hidden">
@@ -193,8 +220,12 @@ checkAccess(['superAdmin', 'admin', 'staff']);
     <footer>Cyber Range</footer>
 </main>
 <div id="queryDisplay" class="queryDisplay"></div>
+<div id="floatingBox" class="floating-box">
+    Item successfully added to database. 🚀
+    <div id="data-return"></div>
+</div>
 
-<script src="cyberScript.js"></script>
+<script src="/javascript/cyberScript.js" type="text/javascript"></script>
 <script src="/javascript/nav-menu.js" type="text/javascript"></script>
 <script>
     async function ViewTable() {
@@ -250,6 +281,8 @@ checkAccess(['superAdmin', 'admin', 'staff']);
         button.setAttribute('onclick', 'BackToMain()')
         button.setAttribute('class', 'table-view-return-btn')
         table.appendChild(button)
+        // scroll to top
+        window.scrollTo(0, 0)
         if (data.failure) {
             alert(data.message)
         }
@@ -264,15 +297,21 @@ checkAccess(['superAdmin', 'admin', 'staff']);
     }
 
     async function InsertRow() {
+        console.log(document.getElementById('insertForm'))
         const response = await fetch('/insert-data/', {
             method: 'POST',
             body: new FormData(document.getElementById('insertForm'))
         })
         const data = await response.json()
-        console.log(data)
         if (!data.failure) {
-            alert('Row inserted successfully')
             clearForm('insertForm')
+            let data_return = data.message
+            let string_ = ''
+            for (let key in data_return) {
+                string_ += `<p>${key}: ${data_return[key]}</p>`
+            }
+            document.getElementById('data-return').innerHTML = string_
+            showFloatingBox()
         } else {
             alert(data.message)
         }
@@ -291,6 +330,19 @@ checkAccess(['superAdmin', 'admin', 'staff']);
         } else {
             alert(data.message)
         }
+    }
+
+    function showFloatingBox() {
+        let box = document.getElementById("floatingBox");
+        box.classList.add("show");
+
+        // Hide the box after 5 seconds
+        setTimeout(() => {
+            box.classList.add("hide");
+            setTimeout(() => {
+                box.style.display = "none"; // Ensure it's removed after animation
+            }, 500); // Wait for animation to complete
+        }, 10000);
     }
 
 </script>

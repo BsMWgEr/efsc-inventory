@@ -91,6 +91,11 @@ switch ($request) {
         require __DIR__ . $viewDir2 . 'createUser.php';
         break;
 
+    case '/delete-user':
+    case '/delete-user/':
+        require __DIR__ . $viewDir2 . 'deleteUser.php';
+        break;
+
     case '/access-denied/':
     case '/access-denied':
         require __DIR__ . $viewDir . 'error_templates/access-denied.php';
