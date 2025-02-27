@@ -1,7 +1,7 @@
 
 services:
   php-apache:
-    #image: "jmcgaha/inventory:test"
+    #image: "jmcgaha/inventory:test"   # Ensure this line is Commented out UNLESS -> If you want to pull from your own docker hub uncomment and change to your hub info
     build:
       context: .
       dockerfile: docker/Dockerfile

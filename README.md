@@ -2,11 +2,12 @@
 
 ## Maintainers:
 - Arron C.
-  - Discord:
-  - Github:
+  - Discord: romiitor
+  - GitHub: https://github.com/Romii646
 - Jon M. 
-  - Discord:
-  - Github:
+  - Discord: jmcgaha
+  - GitLab: https://gitlab.js-devs.com/jmcgaha
+  - GitHub: https://github.com/BsMWgEr
 
 ## Project structure
 
@@ -72,22 +73,105 @@ ___
 
 ---
 
-## How to build application from source code:
+## How to build/run application from source code:
 
-> ** Install Git
+> ** Install Git - Required for both options
 
+Option 1 (Preferred & Easier):
 > ** Install XAMPP (or whatever tool you want to use to run a development apache webserver & MySQL Database & PHPMyadmin locally)
+> ** Launch MySQL and MySQLAdmin to set up your database to match your env file - user - password - database
+---
+OR:
+
+Option 2 (Advanced - Only use this method if you know what your doing):
+
+- This method requires knowledge of database configuration/administration through command line/terminal
+- Also requires php configuration through config files
+> ** If you do not install XAMPP - Make sure to install PHP directly and follow the instructions listed directly below
+
+> ** Install MySQL and set up user - database - password - port that matches
+> your env file
+
+>Make note of where your php directory is.
+>Your IDE may need you to specify where your php.exe and php.ini file
+> are located. The php.ini contains configurations for php. You may
+> need to make small adjusts to this. You may have to manually enable
+> your database extension in pip.ini.
+
+Debugging issues (if database connection issues):
+- In your php.ini file find section labeled Dynamic Extensions
+Then line labeled ;extension=pdo_mysq and uncomment by removing the semicolon.
+Also, depending on your drive configuration, you may need to manually specify
+the location of the extension as well. This file is located in your
+main php directory called ext and the file, if using mysql is called
+php_pdo_mysql.dll. 
+- If you are using a different database, follow the same method, but apply to whichever db you are using. 
+
+Below are 2 variations in which you may have your dynamic extension for
+your database module enabled in php.ini
+
+** php.ini may also be called php.ini-development **
+(there is a separate ini file for production)
+- The difference between a development and production ini file is the error messaging
+- developement ini displays detailed error messages for debugging which are unsafe to use in production
+
+```
+extension=pdo_mysql
+```
+
+```
+extension="D:\php\ext\php_pdo_mysql.dll"
+```
   
 You can also use other tools to run your project locally. Certain IDE's for instance allow for this, but you would need to install mysql separately and manage it through command line.
 
+---
+>If using Option 1 - Follow these steps in order
 
+>If using Option 2 - Skip step 1
 1. Create a directory in
+
 ```C:\xampp\htdocs\<your project name>\```
-2. After setting up Git run this command to pull down the repo
-```git pull *git repo here> .```
-3. intialize your new project using git init
-```git init```
-4. add your .env file with the following information:
+2. After setting up Git run this command to pull down the repo or if you really don't want to use git you can also download the repo as a zip file from the GitHub Repo. Just click the button that says code and then click download Zip.
+
+```
+git clone https://github.com/BsMWgEr/efsc-inventory.git .
+```
+OR:
+```
+git clone https://gitlab.js-devs.com/efsc-inventory.git .
+```
+
+- (adding the . after the command clones it into the current folder you are in. If you remove the . it will clone it into a new folder)
+3. Delete .git from the directory and intialize your new project using git init.
+
+```
+git init
+```
+
+4. Create a new repo on GitHub or GitLab
+
+```
+git remote add origin <your-new-repo>
+```
+
+```
+git add .
+```
+
+```
+git commit -m "your message here"
+```
+
+```
+git branch -M main
+```
+
+```
+git push -u origin main
+```
+5. add your .env file with the following information:
+6. Launch Apache & MySQL in XAMPP if you haven't already done so (Make sure you completed the steps above already and configured your database using MySQLAdmin to match your env file config)
 ```
 MYSQL_DATABASE=database_name_here
 MYSQL_USER=mysql
@@ -97,7 +181,9 @@ MYSQL_PORT=3306
 MYSQL_ROOT_PASSWORD=changeme
 ```
 
-> ensure you change database, user, and passwords to your desired settings
+> change database, user, and passwords to your desired settings
+
+> ** Ensure the database settings match the env file **
 
 ---
 
@@ -105,7 +191,7 @@ MYSQL_ROOT_PASSWORD=changeme
 
 ** Docker Desktop must installed on your system
 
-1. Follow steps 2, 3, 4 from the above directions
+1. Follow steps 2, 3, 4, 5 from the above directions
 2. make sure you are in the root of your directory (where the docker-compose.yaml file is)
 2. Run the following command:
 ```
