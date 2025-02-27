@@ -209,13 +209,13 @@ Test Users:
 
 - Superadmin
   - Username: superadmin
-  - Password: test
+  - Password: password
 - Admin
   - Username: admin
-  - Password: test
+  - Password: password
 - Staff
   - Username: staff
-  - Password: test
+  - Password: password
 
 Starter DB File:
 click the link below to download
