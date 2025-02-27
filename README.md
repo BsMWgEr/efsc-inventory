@@ -200,3 +200,23 @@ docker-compose up -d --build
 3. Access PHPMyAdmin http://localhost:8081 
 4. Create a new database
 5. Import the database file (). This will create the tables, provide starter test data, and 3 test users to log in with.
+
+---
+## Starter Database
+This file will set up your database with the required schema, some test data, and 3 test users
+
+Test Users:
+
+- Superadmin
+  - Username: superadmin
+  - Password: test
+- Admin
+  - Username: admin
+  - Password: test
+- Staff
+  - Username: staff
+  - Password: test
+
+Starter DB File:
+click the link below to download
+https://cdn.js-devs.com/public/starter-inventory-database.sql
