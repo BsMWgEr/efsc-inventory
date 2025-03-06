@@ -162,7 +162,7 @@ checkAccess(['superAdmin', 'admin', 'staff']);
             </select><br>
             <div id="updateFormCommonFields">
                 <label for="pValue">Bar code number</label><br>
-                <input class="update-form-inputs" type="text" id="pValue" name="p_id"/><br>
+                <input class="update-form-inputs" type="text" id="pValue" name="acc_id"/><br>
                 <label for="nValue">Brand name</label><br>
                 <input class="update-form-inputs" type="text" id="nValue" name="name"/><br>
                 <label for="conValue">Update condition of component</label><br>
@@ -174,40 +174,18 @@ checkAccess(['superAdmin', 'admin', 'staff']);
             </div>
 
             <div id="updateAccessoriesFields" class="hidden">
-                <label for="typeVal">Update accessories type</label><br>
-                <input class="update-form-inputs" type="text" id="typeVal" name="type" value=""/><br>
             </div>
 
             <div id="updateMonitorsFields" class="hidden">
-                <label for="sizeVal">Update monitor size</label><br>
-                <input type="hidden" id="sizeVal" name="addMonitorSize" value="" checked/>
-                <input type="radio" id="sizeVal" name="addMonitorSize" value="small"/> Small (up to 14 in)
-                <input type="radio" id="sizeVal" name="addMonitorSize" value="medium"/> Medium (15 inch to 22 inch)
-                <input type="radio" id="sizeVal" name="addMonitorSize" value="large"/> Large (22in and up)<br>
             </div>
 
             <div id="updateMotherBoardsFields" class="hidden">
-                <label for="sizeVal">Update Size</label><br>
-                <input type="hidden" id="sizeVal" name="addMotherboardSize" value="" checked/>
-                <input type="radio" id="sizeVal" name="addMotherboardSize" value="Micro ATX"/> Micro ATX (mATX)
-                <input type="radio" id="sizeVal" name="addMotherboardSize" value="ATX"/> full-size ATX
-                <input type="radio" id="sizeVal" name="addMotherboardSize" value="Extended ATX"/> Extended ATX (EATX)<br>
             </div>
 
             <div id="updateRamsticksFields" class="hidden">
-                <label for="typeVal">Update ramstick type</label><br>
-                <input class="update-form-inputs" type="text" id="typeVal" name="type" value=""/><br>
-                <label for="speed">Update ramstick speed</label><br>
-                <input class="update-form-inputs" type="number" id="speed" name="speed" step="1" placeholder="Enter a integer" value="0"/><br>
             </div>
 
             <div id="updatePowerSupplyFields" class="hidden">
-                <label for="wattage">Update power supply wattage</label><br>
-                <input class="update-form-inputs" type="number" id="wattage" name="wattageValue" step="1" placeholder="Enter a integer" value="0"/><br>
-                <label for="modVal">Update "if power supply is modular"</label><br>
-                <input type="hidden" id="modVal" name="modular" value="" checked/>
-                <input type="radio" id="modVal" name="modular" value="yes"/> Yes
-                <input type="radio" id="modVal" name="modular" value="no"/> No<br>
             </div>
         <div class="update-form-buttons">
             <button class="update-form-btns" type="reset" onclick="clearForm('updateForm')">Clear Form</button>&nbsp; &nbsp;
@@ -324,11 +302,14 @@ checkAccess(['superAdmin', 'admin', 'staff']);
         })
         const data = await response.json()
         console.log(data)
-        if (!data.failure) {
+        if (data.success) {
             alert('Row updated successfully')
             clearForm('updateForm')
+            showFloatingBox()
+            console.log(data)
         } else {
             alert(data.message)
+            console.log(data)
         }
     }
 

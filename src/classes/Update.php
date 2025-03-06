@@ -1,236 +1,91 @@
 <?php
 
-class Update extends SQLOp{// updateOp class intended to update tables
+class Update extends SQLOp
+{// updateOp class intended to update tables
     // class variables
     protected $data;
 
     public function set_data($inputData)
     {
-        $this -> data = $inputData;
+        $this->data = $inputData;
     }
 
-    public function update_mouse() {
-
-        $mouse_id = $this -> data['p_id'];
-        $name = $this -> data['name'];
-        $condition = $this -> data['condition'];
-        $cost = $this -> data['cost'];
-        $location = $this -> data['location'];
-
-        $this -> SQLstring = "UPDATE mice SET mouse_id = :mouse_id, name = :name, `condition` = :condition, cost = :cost, location = :location WHERE mouse_id = :mouse_id";
-        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
-        $this -> statement -> bindParam(':mouse_id', $mouse_id);
-        $this -> statement -> bindParam(':name', $name);
-        $this -> statement -> bindParam(':condition', $condition);
-        $this -> statement -> bindParam(':cost', $cost);
-        $this -> statement -> bindParam(':location', $location);
-
-        try {
-            if($this->statement->execute()) {
-                return json_encode(["success" => true, "message" => "User updated successfully"]);
-            }
-        } catch (PDOException $e) {
-            $error_message = $e->getMessage();
-            return json_encode(["failure" => true, "message" => $error_message]);
-        }
-
-    }
-
-    public function update_accessory()
+    public function get_column_names($table)
     {
-        $acc_id = $this -> data['p_id'];
-        $name = $this -> data['name'];
-        $type = $this -> data['type'];
-        $condition = $this -> data['condition'];
-        $cost = $this -> data['cost'];
-        $location = $this -> data['location'];
+        // Prepare the SQL query to get column information
+        $SQLstring = "DESCRIBE $table";
 
-        $this -> SQLstring = "UPDATE accessories SET acc_id = :acc_id, name = :name, type = :type, `condition` = :condition, cost = :cost, location = :location WHERE acc_id = :acc_id";
-        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
-        $this -> statement -> bindParam(':acc_id', $acc_id);
-        $this -> statement -> bindParam(':name', $name);
-        $this -> statement -> bindParam(':type', $type);
-        $this -> statement -> bindParam(':condition', $condition);
-        $this -> statement -> bindParam(':cost', $cost);
-        $this -> statement -> bindParam(':location', $location);
+        // Prepare the statement
+        $this->statement = $this->conn->prepare($SQLstring);
 
         try {
-            if($this->statement->execute()) {
-                return json_encode(["success" => true, "message" => "User updated successfully"]);
+            // Execute the query
+            $this->statement->execute();
+
+            // Fetch all the column information
+            $columns = $this->statement->fetchAll(PDO::FETCH_ASSOC);
+
+            // Extract just the column names
+            $columnNames = [];
+            foreach ($columns as $column) {
+                $columnNames[] = $column['Field'];  // 'Field' is the column name in the DESCRIBE output
             }
+
+            return $columnNames;
         } catch (PDOException $e) {
-            $error_message = $e->getMessage();
-            return json_encode(["failure" => true, "message" => $error_message]);
+            // Return an error message if something goes wrong
+            return json_encode(["failure" => true, "message" => $e->getMessage()]);
         }
     }
 
-    public function update_keyboard()
+    // $data keys must match table column names
+    public function update_item($table, $idField, $data)
     {
-        $kb_id = $this -> data['p_id'];
-        $name = $this -> data['name'];
-        $condition = $this -> data['condition'];
-        $cost = $this -> data['cost'];
-        $location = $this -> data['location'];
+        // Prepare dynamic SQL for the update
+        $setClause = "";
+        $params = [];
 
-        $this -> SQLstring = "UPDATE keyboards SET kb_id = :kb_id, name = :name, `condition` = :condition, cost = :cost, location = :location WHERE kb_id = :kb_id";
-        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
-        $this -> statement -> bindParam(':kb_id', $kb_id);
-        $this -> statement -> bindParam(':name', $name);
-        $this -> statement -> bindParam(':condition', $condition);
-        $this -> statement -> bindParam(':cost', $cost);
-        $this -> statement -> bindParam(':location', $location);
-
-        try {
-            if($this->statement->execute()) {
-                return json_encode(["success" => true, "message" => "User updated successfully"]);
+        // Loop through the data and create the SET part of the SQL query
+        foreach ($data as $key => $value) {
+            if ($key != $idField) {  // Skip the id field from the SET part
+                $setClause .= "`$key` = :$key, ";
+                $params[":$key"] = $value;  // Add to params for binding
             }
-        } catch (PDOException $e) {
-            $error_message = $e->getMessage();
-            return json_encode(["failure" => true, "message" => $error_message]);
-        }
-    }
-
-    public function update_monitor()
-    {
-        $monitor_id = $this -> data['p_id'];
-        $name = $this -> data['name'];
-        $condition = $this -> data['condition'];
-        $cost = $this -> data['cost'];
-        $location = $this -> data['location'];
-        $monitorSize = $this -> data['addMonitorSize'];
-
-        $this -> SQLstring = "UPDATE monitors SET monitor_id = :monitor_id, name = :name, `condition` = :condition, cost = :cost, location = :location, size = :size WHERE monitor_id = :monitor_id";
-        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
-        $this -> statement -> bindParam(':monitor_id', $monitor_id);
-        $this -> statement -> bindParam(':name', $name);
-        $this -> statement -> bindParam(':condition', $condition);
-        $this -> statement -> bindParam(':cost', $cost);
-        $this -> statement -> bindParam(':location', $location);
-        $this -> statement -> bindParam(':size', $monitorSize);
-
-        try {
-            if($this->statement->execute()) {
-                return json_encode(["success" => true, "message" => "User updated successfully"]);
-            }
-        } catch (PDOException $e) {
-            $error_message = $e->getMessage();
-            return json_encode(["failure" => true, "message" => $error_message]);
-        }
-    }
-
-    public function update_motherboard()
-    {
-        $mobo_id = $this -> data['p_id'];
-        $name = $this -> data['name'];
-        $size = $this -> data['addMotherboardSize'];
-        $condition = $this -> data['condition'];
-        $cost = $this -> data['cost'];
-        $location = $this -> data['location'];
-
-        $this -> SQLstring = "UPDATE motherboards SET mobo_id = :mobo_id, name = :name, size = :size, `condition` = :condition, cost = :cost, location = :location WHERE mobo_id = :mobo_id";
-        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
-        $this -> statement -> bindParam(':mobo_id', $mobo_id);
-        $this -> statement -> bindParam(':name', $name);
-        $this -> statement -> bindParam(':size', $size);
-        $this -> statement -> bindParam(':condition', $condition);
-        $this -> statement -> bindParam(':cost', $cost);
-        $this -> statement -> bindParam(':location', $location);
-
-        try {
-            if($this->statement->execute()) {
-                return json_encode(["success" => true, "message" => "User updated successfully"]);
-            }
-        } catch (PDOException $e) {
-            $error_message = $e->getMessage();
-            return json_encode(["failure" => true, "message" => $error_message]);
         }
 
-    }
+        // Remove the trailing comma and space from the SET clause
+        $setClause = rtrim($setClause, ', ');
 
-    public function update_gpu()
-    {
-        $gpu_id = $this -> data['p_id'];
-        $name = $this -> data['name'];
-        $condition = $this -> data['condition'];
-        $cost = $this -> data['cost'];
-        $location = $this -> data['location'];
+        // Build the full SQL string for the UPDATE query
+        $this->SQLstring = "UPDATE $table SET $setClause WHERE $idField = :$idField";
 
-        $this -> SQLstring = "UPDATE graphicscards SET gpu_id = :gpu_id, name = :name, `condition` = :condition, cost = :cost, location = :location WHERE gpu_id = :gpu_id";
-        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
-        $this -> statement -> bindParam(':gpu_id', $gpu_id);
-        $this -> statement -> bindParam(':name', $name);
-        $this -> statement -> bindParam(':condition', $condition);
-        $this -> statement -> bindParam(':cost', $cost);
-        $this -> statement -> bindParam(':location', $location);
+        // Prepare the SQL statement
+        $this->statement = $this->conn->prepare($this->SQLstring);
 
-        try {
-            if($this->statement->execute()) {
-                return json_encode(["success" => true, "message" => "User updated successfully"]);
-            }
-        } catch (PDOException $e) {
-            $error_message = $e->getMessage();
-            return json_encode(["failure" => true, "message" => $error_message]);
-        }
-    }
-
-    public function update_ram()
-    {
-        $ram_id = $this -> data['p_id'];
-        $name = $this -> data['name'];
-        $type = $this -> data['type'];
-        $speed = $this -> data['speed'];
-        $condition = $this -> data['condition'];
-        $cost = $this -> data['cost'];
-        $location = $this -> data['location'];
-
-        $this -> SQLstring = "UPDATE ramsticks SET ram_id = :ram_id, name = :name, type = :type, speed = :speed, `condition` = :condition, cost = :cost, location = :location WHERE ram_id = :ram_id";
-        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
-        $this -> statement -> bindParam(':ram_id', $ram_id);
-        $this -> statement -> bindParam(':name', $name);
-        $this -> statement -> bindParam(':type', $type);
-        $this -> statement -> bindParam(':speed', $speed);
-        $this -> statement -> bindParam(':condition', $condition);
-        $this -> statement -> bindParam(':cost', $cost);
-        $this -> statement -> bindParam(':location', $location);
-
-        try {
-            if($this->statement->execute()) {
-                return json_encode(["success" => true, "message" => "User updated successfully"]);
-            }
-        } catch (PDOException $e) {
-            $error_message = $e->getMessage();
-            return json_encode(["failure" => true, "message" => $error_message]);
+        // Bind parameters dynamically for the SET clause
+        foreach ($params as $key => $value) {
+            $this->statement->bindValue("$key", $value);
         }
 
-    }
-
-    public function update_psu()
-    {
-        $psu_id = $this -> data['p_id'];
-        $name = $this -> data['name'];
-        $wattage = $this -> data['wattage'];
-        $modular = $this -> data['modular'];
-        $condition = $this -> data['condition'];
-        $cost = $this -> data['cost'];
-        $location = $this -> data['location'];
-
-        $this -> SQLstring = "UPDATE powersupplies SET psu_id = :psu_id, name = :name, wattage = :wattage, modular = :modular, `condition` = :condition, cost = :cost, location = :location WHERE psu_id = :psu_id";
-        $this -> statement = $this -> conn -> prepare($this -> SQLstring);
-        $this -> statement -> bindParam(':psu_id', $psu_id);
-        $this -> statement -> bindParam(':name', $name);
-        $this -> statement -> bindParam(':wattage', $wattage);
-        $this -> statement -> bindParam(':modular', $modular);
-        $this -> statement -> bindParam(':condition', $condition);
-        $this -> statement -> bindParam(':cost', $cost);
-        $this -> statement -> bindParam(':location', $location);
+        // Bind the idField parameter for the WHERE clause
+        $this->statement->bindParam(":$idField", $data[$idField]);
 
         try {
-            if($this->statement->execute()) {
-                return json_encode(["success" => true, "message" => "User updated successfully"]);
+            // Execute the statement and return success or failure message
+            if ($this->statement->execute()) {
+                return json_encode([
+                    "success" => true,
+                    "message" => "$table updated successfully",
+                    "data" => $data,
+                ]);
             }
         } catch (PDOException $e) {
+            // Catch any exceptions and display error message
             $error_message = $e->getMessage();
-            return json_encode(["failure" => true, "message" => $error_message]);
+            return json_encode([
+                "success" => false,
+                "message" => $error_message,
+            ]);
         }
     }
 }

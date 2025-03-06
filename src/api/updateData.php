@@ -9,24 +9,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $updateOP = new Update();
     $updateOP -> connect();
-    $updateOP -> set_data($_POST);
-
-    if ($table_name == "accessories") {
-        $updateOP -> update_accessory();
-    } else if ($table_name == "keyboards") {
-        $updateOP -> update_keyboard();
-    } else if ($table_name == "mice") {
-        $updateOP -> update_mouse();
-    } else if ($table_name == "monitors") {
-        $updateOP -> update_monitor();
-    } else if ($table_name == "graphicscards") {
-        $updateOP -> update_gpu();
-    } else if ($table_name == "ramsticks") {
-        $updateOP -> update_ram();
-    } else if ($table_name == "motherboards") {
-        $updateOP -> update_motherboard();
-    } else if ($table_name == "powersupplies") {
-        $updateOP -> update_psu();
+    $columns = $updateOP -> get_column_names($table_name);
+    $clean_data = [];
+    // Form field names must match database column names
+    foreach($_POST as $key => $value) {
+        $value = trim($value);
+        if (in_array($key, $columns)) {
+           $clean_data += [$key => $value];
+        }
     }
+    $response = $updateOP -> update_item($_POST['tableUpdate'], $columns[0], $clean_data);
+    echo $response;
 
 }
