@@ -168,9 +168,8 @@ checkAccess(['superAdmin', 'admin']);
         })
         const data = await response.json()
         console.log(data)
-        if (data.failure) {
+        if (!data.success) {
             alert(data.message)
-            return;
         } else {
             alert(data.message)
             document.getElementById('tableDeleteListOptions').innerHTML = ''

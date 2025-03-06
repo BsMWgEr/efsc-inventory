@@ -11,9 +11,6 @@ $deleteOp = new DeleteData(); // instantiating deleteOp class
 $table_name = $_POST['tableDelete'];
 $column_name = find_ID($_POST["tableDelete"]);
 $p_id = $_POST['pValue'];
-if($errorCount == 0) {
-    $deleteOp -> connect();
-    $deleteOp -> set_table_delete($table_name, $p_id, $column_name);
-    $response = $deleteOp -> delete_row();
-    echo $response;
-}
+$deleteOp -> connect();
+$response = $deleteOp -> delete_row($table_name, $p_id, $column_name);
+//echo $response;
