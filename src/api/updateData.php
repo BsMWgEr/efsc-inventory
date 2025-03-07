@@ -10,15 +10,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $updateOP = new Update();
     $updateOP -> connect();
     $columns = $updateOP -> get_column_names($table_name);
-    $clean_data = [];
+    $cleaned_data = [];
     // Form field names must match database column names
     foreach($_POST as $key => $value) {
         $value = trim($value);
-        if (in_array($key, $columns)) {
-           $clean_data += [$key => $value];
+        if ($key == "p_id") {
+            $cleaned_data += [$columns[0] => $value];
+        }
+        if(in_array($key, $columns)) {
+            $cleaned_data += [$key => $value];
         }
     }
-    $response = $updateOP -> update_item($_POST['tableUpdate'], $columns[0], $clean_data);
+    $response = $updateOP -> update_item($_POST['tableUpdate'], $columns[0], $cleaned_data);
     echo $response;
-
 }

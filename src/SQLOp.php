@@ -42,6 +42,34 @@ abstract Class SQLOp {
     public function DB_close(){
         $this -> database -> closeDB();
     }
+
+    public function get_column_names($table)
+    {
+        // Prepare the SQL query to get column information
+        $SQLstring = "DESCRIBE $table";
+
+        // Prepare the statement
+        $this->statement = $this->conn->prepare($SQLstring);
+
+        try {
+            // Execute the query
+            $this->statement->execute();
+
+            // Fetch all the column information
+            $columns = $this->statement->fetchAll(PDO::FETCH_ASSOC);
+
+            // Extract just the column names
+            $columnNames = [];
+            foreach ($columns as $column) {
+                $columnNames[] = $column['Field'];  // 'Field' is the column name in the DESCRIBE output
+            }
+
+            return $columnNames;
+        } catch (PDOException $e) {
+            // Return an error message if something goes wrong
+            return json_encode(["failure" => true, "message" => $e->getMessage()]);
+        }
+    }
 }
 
 class pcSetUp extends SQLOp{

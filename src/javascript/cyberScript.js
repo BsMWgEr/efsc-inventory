@@ -32,7 +32,6 @@ function showNeededFields(table, accessories, monitors, motherboards, ramsticks,
         accessoryField.classList.remove('hidden');
         accessoryField.innerHTML = `<label for="typeVal">Update accessories type</label><br>
                 <input class="update-form-inputs" type="text" id="typeVal" name="type" value=""/><br>`
-        document.getElementById('pValue').setAttribute('name', 'acc_id')
     }
     else if (tableSelect === 'monitors') {
         monitorsFields.classList.remove('hidden');
@@ -41,7 +40,6 @@ function showNeededFields(table, accessories, monitors, motherboards, ramsticks,
                 <input type="radio" id="sizeVal" name="size" value="small"/> Small (up to 14 in)
                 <input type="radio" id="sizeVal" name="size" value="medium"/> Medium (15 inch to 22 inch)
                 <input type="radio" id="sizeVal" name="size" value="large"/> Large (22in and up)<br>`
-        document.getElementById('pValue').setAttribute('name', 'monitor_id')
     }
     else if (tableSelect === 'motherboards') {
         motherboardsFields.classList.remove('hidden');
@@ -50,7 +48,6 @@ function showNeededFields(table, accessories, monitors, motherboards, ramsticks,
                 <input type="radio" id="sizeVal" name="size" value="Micro ATX"/> Micro ATX (mATX)
                 <input type="radio" id="sizeVal" name="size" value="ATX"/> full-size ATX
                 <input type="radio" id="sizeVal" name="size" value="Extended ATX"/> Extended ATX (EATX)<br>`
-        document.getElementById('pValue').setAttribute('name', 'mobo_id')
     }
     else if (tableSelect === 'ramsticks') {
         ramsticksFields.classList.remove('hidden');
@@ -58,7 +55,6 @@ function showNeededFields(table, accessories, monitors, motherboards, ramsticks,
                 <input class="update-form-inputs" type="text" id="typeVal" name="type" value=""/><br>
                 <label for="speed">Update ramstick speed</label><br>
                 <input class="update-form-inputs" type="number" id="speed" name="speed" step="1" placeholder="Enter a integer" value="0"/><br>`
-        document.getElementById('pValue').setAttribute('name', 'ram_id')
     }
     else if (tableSelect === 'powersupplies') {
         powerSupplyFields.classList.remove('hidden');
@@ -68,13 +64,6 @@ function showNeededFields(table, accessories, monitors, motherboards, ramsticks,
                 <input type="hidden" id="modVal" name="modular" value="" checked/>
                 <input type="radio" id="modVal" name="modular" value="yes"/> Yes
                 <input type="radio" id="modVal" name="modular" value="no"/> No<br>`
-        document.getElementById('pValue').setAttribute('name', 'psu_id')
-    }
-    else if (tableSelect === 'keyboards') {
-        document.getElementById('pValue').setAttribute('name', 'kb_id')
-    }
-    else if (tableSelect === 'mice') {
-        document.getElementById('pValue').setAttribute('name', 'mouse_id')
     }
 }// end of addShowNeededFields
 

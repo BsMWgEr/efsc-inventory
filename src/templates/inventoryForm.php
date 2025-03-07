@@ -78,42 +78,18 @@ checkAccess(['superAdmin', 'admin', 'staff']);
             </div>
             
             <div id="addAccessoryFields" class="hidden">
-                <label for="type">Asscessory type</label><br>
-                <input type="text" id="type" name="insert-type" value="" placeholder="Type of Acc."/><br>
             </div>
 
             <div id="addMonitorsFields" class="hidden">
-                <label for="size">Monitor size</label><br>
-                <input type="hidden" id="size" name="addMonitorSize" value="" checked/>
-                <input type="radio" id="size" name="addMonitorSize" value="small"/> Small (up to 14 in)
-                <input type="radio" id="size" name="addMonitorSize" value="medium"/> Medium (15 inch to 22 inch)
-                <input type="radio" id="size" name="addMonitorSize" value="large"/> large (22in and up)<br>
             </div>
 
             <div id="addMotherboardsFields" class="hidden">
-                <label for="size">Motherboard Size</label><br>
-                <select id="" name="addMotherboardSize">
-                    <option value="empty">Select Size</option>
-                    <option value="Micro ATX">Micro ATX (mATX)</option>
-                    <option value="ATX">full-size ATX</option>
-                    <option value="Extended ATX">Extended ATX (EATX)</option>
-                </select>
             </div>
 
             <div id="addRamsticksFields" class="hidden">
-                <label for="type">Type of ramstick</label><br>
-                <input type="text" id="type" name="type" value="" placeholder="Type"/><br>
-                <label for="speed">Ramstick speed</label><br>
-                <input type="number" id="speed" name="speed" step="1" placeholder="Enter a integer" value="0"/><br>
             </div>
 
             <div id="addPowerSupplyFields" class="hidden">
-                <label for="wattage">power supply wattage</label><br>
-                <input type="number" id="wattage" name="wattage" step="1" placeholder="Enter a integer" value="0"/><br>
-                <label for="modular">Is the power supply modular?</label><br>
-                <input type="hidden" id="modular" name="modular" value="" checked/>
-                <input type="radio" id="modular" name="modular" value="yes"/> Yes
-                <input type="radio" id="modular" name="modular" value="no"/> No<br>
             </div>
             <div class="insertFormButtons">
                 <button class="insertButton" type="reset" onclick="clearForm('addForm')">Clear Form</button>&nbsp; &nbsp;
@@ -162,7 +138,7 @@ checkAccess(['superAdmin', 'admin', 'staff']);
             </select><br>
             <div id="updateFormCommonFields">
                 <label for="pValue">Bar code number</label><br>
-                <input class="update-form-inputs" type="text" id="pValue" name="acc_id"/><br>
+                <input class="update-form-inputs" type="text" id="pValue" name="p_id"/><br>
                 <label for="nValue">Brand name</label><br>
                 <input class="update-form-inputs" type="text" id="nValue" name="name"/><br>
                 <label for="conValue">Update condition of component</label><br>
@@ -281,7 +257,8 @@ checkAccess(['superAdmin', 'admin', 'staff']);
             body: new FormData(document.getElementById('insertForm'))
         })
         const data = await response.json()
-        if (!data.failure) {
+        if (data.success) {
+            console.log(data)
             clearForm('insertForm')
             let data_return = data.message
             let string_ = ''
@@ -291,6 +268,7 @@ checkAccess(['superAdmin', 'admin', 'staff']);
             document.getElementById('data-return').innerHTML = string_
             showFloatingBox()
         } else {
+            console.log(data)
             alert(data.message)
         }
     }
